@@ -2,13 +2,18 @@
 
 # About the data
 
-## Subjects and Activities
+### Measurements
+The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. The training data is located under the `train` folder and has been named `X_train.txt`. The test data is located under the `test` folder wit the file named `X_test.txt`
+
+There are two files for 
+
+### Subjects and Activities
 The experiments have been carried out with a group of `30 volunteers` within an age bracket of 19-48 years. Each person performed six activities (`WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING`) wearing a smartphone.
 
-## Subjects for training and testing
+### Subjects for training and testing
 The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 
-## ACtivity labels
+### ACtivity labels
 ```
 1 WALKING
 2 WALKING_UPSTAIRS
