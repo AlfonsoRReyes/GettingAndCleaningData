@@ -12,7 +12,11 @@ This document explains how the scripts and function work all together; what each
 
 # The main script
 
-The main script is `run_analysis.R`. All the functions included in this script. There is no other additional script beside the main script.
+The main script is `run_analysis.R`. All the functions included in this script. There is no other additional script beside the main script. 
+
+The script has abundant comments documenting what each part of the code does. Some comments are above sections of the code qualified as important, while the comments on the side document an operational secondary task.
+
+All of the files have been read using `read.table()`. Data frame operations have used mostly the `dplyr` library. 
 
 # The main functions
 
@@ -111,7 +115,14 @@ The main script is `run_analysis.R`. All the functions included in this script. 
 
 
 
+# Data frames
 
+Data frames have been profusely used in this assignment. We will start describing the data frames from the most important downwards:
 
+`sum_SubjectActivity`: this data frame is a summary by subjects and activities as per requirements of the assignment. This data frame is based on the merged `train` and `test` data frame (10299 observations). It is resulting from applying the mean to selected columns that have in their variable names the keywords `mean` and `std`. This summary data frame has 180 observations and 88 variables, where the first grouping variable is `subjects_id` (values from 1 thru 30), and the second variable name `activity_name` (with values laying, sitting, standing, walking, walking_downstairs and walking_upstairs.)
 
+`train_test_merged`: this is the resulting data frame after combining the training and test datasets. This final dataset contains 10299 observations and 92 variables. This data frame will later be used to produce the tidy dataset according to activity, subjects and the mean of the numerical variables (average and standard deviation) in the dataset.
 
+`train`: it is a dataset before the merging operation with test. It has 7352 observations and 91 variables.
+
+`test`: it is a dataset before the merging operation with train. It has 2947 observations and 91 variables.
