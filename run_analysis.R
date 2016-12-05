@@ -172,7 +172,7 @@ compose_features <- function(fileName) {
   # get counts for all rows and duplicate rows
   all_rows <- nrow(features)
   duplicate_rows <- length(features$V2[(duplicated(features$V2) | duplicated(features$V2, fromLast = TRUE))])
-  list(all_rows=all_rows, duplicates=duplicate_rows)
+  list(all_rows=all_rows, duplicates=duplicate_rows)    # create a list for nice reporting later
   
   # create features with logical marker for duplicates
   features2 <- features %>%
