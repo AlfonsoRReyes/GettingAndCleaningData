@@ -18,6 +18,38 @@ The script has abundant comments documenting what each part of the code does. So
 
 All of the files have been read using `read.table()`. Data frame operations have used mostly the `dplyr` library. 
 
+
+
+# The output summary file
+
+This is a data file generated according to requirements of the assignment. It is an independent tidy data set with the average of each variable for each activity and each subject. The variables that are part of this table are only the mean and standard deviation. Originally, the dataset has 561 variable but are reduced to 88 variables after making the selection of columns containing the keywords `mean` and `std`.
+
+The independent tidy data set is in the repository and was created with this command:
+
+`write.table(sum_SubjectActivity, "sum_subjects_activities.txt")`
+
+To read it back for further analysis the following could be used if the file is local or has been downloaded:
+
+`sum_subjects_activities_txt <- read.table("sum_subjects_activities.txt")`
+
+
+
+To read the file directly from the repository use this command instead:
+
+```
+fileUrl <- "https://github.com/AlfonsoRReyes/GettingAndCleaningData/raw/master/sum_subjects_activities.txt"
+
+sum_subjects_activities_url <- read.table(fileUrl)
+```
+
+
+
+The data frame will show 180 observations and 88 variable names. The 180 observations result from 30 individuals who performed separate training and testing experiments, each performing 6 activities. meaning, there will be 6 summarized observations per individual.
+
+The measurement variables are all the mean of the 88 variable that were pre-selected as measurements of the mean and standard deviation of other measurements. The meaning of these variables is explain in the __codebook__, which can also be found in the repository.
+
+
+
 # The main functions
 
 `run_ana()`
