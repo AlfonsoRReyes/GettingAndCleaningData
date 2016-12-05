@@ -21,12 +21,12 @@ run_ana <- function() {
   # read and assign subjects
   # ---------------------------------------------------------------------------
   if(!file.exists("./data")){dir.create("./data")}
+  
   library(downloader)
   
   fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-  
-  download(fileUrl, dest="dataset.zip", mode="wb") 
-  unzip ("dataset.zip", exdir = "./data")
+  # download(fileUrl, dest="dataset.zip", mode="wb") 
+  # unzip ("dataset.zip", exdir = "./data")
   
 
 # read common tables such as activity labels and features (column names for measurements)
@@ -236,18 +236,16 @@ make_nice_variables <- function(column_names) {
 
 
 noblankElements <- function(x) {
-  # x:        character vector
-  # returns:  character vector
-  #
   # receives a list of characters that has been split
   # and returns the concatenation of not-blank elements in lowercase
+  #
+  # x:        character vector
+  # returns:  character vector
   (x[(!is.null(x)) & (x != "")]) %>%    # get non empty elements and non blanks in the list
     unlist() %>%                        # unpack the elements in the list
     tolower() %>%                       # convert to lowercase
     paste(collapse = '')                # concatenate valid components of original variable name
 }
-
-
 
 
 duplicates <- function(vec) {
