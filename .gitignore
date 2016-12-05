@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 course-project.Rproj
+/data/
+dataset.zip
+unit_test.Rmd
