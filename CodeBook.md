@@ -421,7 +421,7 @@ $all_rows
 $duplicates
 [1] 126
 ```
-We can see from the results above that there are 126 duplicate variable names. We find them by using the R function `duplicated()`, reading from both sides, the beginning of the vector and from the end of the vector. We do this to force the inclusion of the original variables that were causing the repetition and not only the repeating variables.
+We can see from the results above that there are 126 duplicate variable names out of a total of 561. We find them by using the R function `duplicated()`, reading from both sides, the beginning of the vector and from the end of the vector. We do this to force the inclusion of the original variables that were causing the repetition and not only the repeating variables.
 
 
 
