@@ -72,10 +72,16 @@ run_ana <- function() {
   train_test_merged <<- rbind(train, test) %>%
     mutate(row_num = row_number())      # add row_num to be able to reorder table in the future
   
+  # group by subjects and activities
   by_SubjectActivity<- group_by(train_test_merged, subjects_id, activity_name)
   
+  # summary showing the mean of mean and std columns by subects and activities
   sum_SubjectActivity <<- summarize_at(by_SubjectActivity, .cols = mean_std_vars,
                              .funs = mean)  
+  
+  # output of tidy dataset containing summary of subjects and activities 
+  # and the mean of selected columns.
+  write.table(sum_SubjectActivity, "sum_subjects_activities.txt")
   
 }
 
