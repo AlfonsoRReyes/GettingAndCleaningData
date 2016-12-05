@@ -61,16 +61,21 @@ run_ana <- function() {
   # rows:     
   # columns:  
   # read measurement tables for training and testing
-  train <- compose("train")
-  test  <- compose("test")
+  train <<- compose("train")
+  test  <<- compose("test")
   
   
   # merge the measurement datasets for training and testing
   # rows:     10299
   # columns:  92
   # contains: (1) measurements for training and tests; (2) subjects; (3) activities
-  merged <- rbind(train, test) %>%
+  train_test_merged <<- rbind(train, test) %>%
     mutate(row_num = row_number())      # add row_num to be able to reorder table in the future
+  
+  by_SubjectActivity<- group_by(train_test_merged, subjects_id, activity_name)
+  
+  sum_SubjectActivity <<- summarize_at(by_SubjectActivity, .cols = mean_std_vars,
+                             .funs = mean)  
   
 }
 
@@ -104,6 +109,8 @@ compose <- function(ds_name) {
   # Keep only mean and std-dev variables in measurements dataset 
   matchExpression <- paste(c("mean", "std"), collapse = "|")                           # pattern of keywords mean, std
   measurements <- select(measurements, matches(matchExpression, ignore.case = TRUE))   # select columns that match mean, std
+  
+  mean_std_vars <<- names(measurements)
   
   # read activity records for measurements for training and testing
   # read subjects records for measurements for training and testing  
@@ -148,6 +155,7 @@ compose <- function(ds_name) {
 
 
 compose_features <- function(fileName) {
+  # takes care of the proper validation of the variables names
   # features <- read.table("./data/UCI HAR Dataset/features.txt")
   features <- read.table(fileName)
   
@@ -214,10 +222,10 @@ compose_features <- function(fileName) {
   duplicate_rows <- duplicates(features_new$V2_nice)
   
   # set new names to final dataframe
-  features_new <- features_new %>%
+  features_new <- features_new %>%      # proceed to rename to something human
     rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
   
-  features_new$nice
+  features_new$nice    # return only one column
 }
 
 
