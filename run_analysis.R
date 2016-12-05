@@ -20,6 +20,14 @@ run_ana <- function() {
   # read and assign activities
   # read and assign subjects
   # ---------------------------------------------------------------------------
+  if(!file.exists("./data")){dir.create("./data")}
+  library(downloader)
+  
+  fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+  
+  download(fileUrl, dest="dataset.zip", mode="wb") 
+  unzip ("dataset.zip", exdir = "./data")
+  
 
 # read common tables such as activity labels and features (column names for measurements)
   
@@ -240,30 +248,6 @@ noblankElements <- function(x) {
 }
 
 
-
-old_compose_features <- function() {
-  # reads a file with raw variable names and converts them to nice variable names
-  library(xlsx)
-  
-  features <- read.table("./data/UCI HAR Dataset/features.txt")
-  
-  # convert factors to character vector
-  raw_column_names <- as.character(features$V2)
-  
-  # ensure there are valid names for the variables. Making valid_column_names GLOBAL
-  valid_column_names <<- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
-  
-  # create a table of the variable names before and after the correction
-  features_diff <- data.frame(raw_column_names, valid_column_names)
-  
-  nice_variables <- make_nice_variables(features_diff$valid_column_names)
-  
-  features_diff$nice_names <- nice_variables
-  
-  # write features_diff to Excel
-  file = paste("./data/UCI HAR Dataset/", "features_custom", "xlsx", sep=".")
-  write.xlsx(features_diff, file=file)
-}
 
 
 duplicates <- function(vec) {
