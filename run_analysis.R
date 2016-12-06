@@ -20,20 +20,112 @@ run_ana <- function() {
   fileName <- "./data/UCI HAR Dataset/features.txt"
   valid_column_names <<- compose_features(fileName)
   
-  # assign correct variable names to measurement data frames
+  # read activity labels. They are 6 activity label variables
+  activity_labels <<- read.table("./data/UCI HAR Dataset/activity_labels.txt")
   
+  # assign correct variable names to measurement data frames
   # add column names to measurements. assign features to variables in measurements datasets
   train_measurements <<- assign_valid_names(train_measurements_raw, valid_column_names)
-  
-  test_measurements  <<- assign_valid_names(test_measurements_raw, valid_column_names)
+  test_measurements  <<- assign_valid_names(test_measurements_raw,  valid_column_names)
   
   # Keep only mean and std-dev variables in measurements dataset 
   
   keywords <- c("mean", "std")
   train_measurements_select <<- select_columns_with_expression(train_measurements, keywords)
+  test_measurements_select  <<- select_columns_with_expression(test_measurements,  keywords)
+  
+
+  
+  # add activity labels to raw acitivities
+  train_activities_with_labels <<- merge_activity_labels(train_activities_raw, activity_labels)
+  test_activities_with_labels  <<- merge_activity_labels(test_activities_raw,  activity_labels)
+  
+  # merge measurements, activities and subjects
+  train_merged <<- merge_all(train_measurements_select, train_activities_with_labels, train_subjects_raw)
+  test_merged  <<- merge_all(test_measurements_select,  test_activities_with_labels,  test_subjects_raw)
+  
+  # merge the measurement datasets for training and testing
+  # rows:     10299
+  # columns:  92
+  # contains: (1) measurements for training and tests; (2) subjects; (3) activities
+  train_test_merged <<- rbind(train_merged, test_merged) %>%
+    mutate(row_num = row_number())      # add row_num to be able to reorder table in the future
+  
+  # assignment question: group by subjects and activities summarizing selected columns by the mean
+  # data frame: train_test_merged
+  # group by subjects and activities
+  by_SubjectActivity <- group_by(train_test_merged, subjects_id, activity_name)
+  
+  # summary showing the mean of mean and std columns by subjects and activities
+  # acting on the merged measurement data frames
+  # mean_std_vars <<- names(measurements)       # assign select variable names (mean, std) to a vector
+  mean_std_vars <- get_variables_matching_keywords(valid_column_names, keywords)
+  
+  # summary
+  sum_SubjectActivity <<- summarize_at(by_SubjectActivity, .cols = mean_std_vars,
+                                       .funs = mean)  
+  
+  # output of tidy dataset containing summary of subjects and activities 
+  # and the mean of selected columns.
+  write.table(sum_SubjectActivity, "sum_subjects_activities.txt")
   
 }
 
+
+get_variables_matching_keywords <- function(column_names, keywords) {
+  matchExpression <- paste(keywords, collapse = "|")
+  select_columns <- column_names[grep(matchExpression, column_names)]
+  return(select_columns)
+}
+
+
+merge_all <- function(measurements, activities, subjects) {
+  # merge measurements, activities and subjects
+  
+  # add row number variable to subjects table. It will be useful to check the merge or join later
+  subjects <- subjects %>%
+    mutate(subjects_rownum = row_number()) %>%          # row numbering to column
+    rename(subjects_id = V1)                            # rename column
+  
+  # add a row number column to measurements to be sure it is not sorted by the merge operation
+  measurements <- measurements %>%
+    mutate(m_rownum = row_number()) %>%   # add a record number to measurements
+    select(m_rownum, everything())        # move the row_num column to be the first column
+  
+  # merge measurements with activity table
+  m0 <- cbind(activities, measurements)
+  
+  # merge new table above with subjects table
+  final <- cbind(subjects, m0)
+  rm(m0) 
+  
+  ds_name <- ifelse(nrow(measurements) == 7352, "train", "test")
+  
+  # add a variable to identify the source of the data
+  final <- final %>%
+    mutate(source = ds_name) %>%                                                                 # new column for source
+    # add new column combining source and record number
+    mutate(src_rownum = paste0(source, "_", str_pad(as.character(m_rownum), 5, pad = "0"))) %>%  # add column with source and row num
+    select(-c(m_rownum, activity_rownum, subjects_rownum))                                       # remove utility columns
+  
+  # return processed dataframe
+  return(final)
+}
+
+
+merge_activity_labels <- function(activities_df, activity_labels) {
+  # Called by: main()
+  #
+  # add row numbers to activity table. It will be useful to check the merge or join later
+  activities_df$activity_rownum <- 1:nrow(activities_df)      # row numbering to column
+  activities_df <- rename(activities_df, activity_id = V1)    # rename column
+  
+  # merge the activity tables (long and descriptive) keeping the original order of test_activity
+  activity_merged <- dplyr::inner_join(activities_df, activity_labels, by =c( "activity_id" = "V1"))
+  activity_merged <- dplyr::rename(activity_merged, activity_name = V2) # rename columns
+  
+  return(activity_merged)
+}
 
 
 select_columns_with_expression <- function(df, keywords) {
