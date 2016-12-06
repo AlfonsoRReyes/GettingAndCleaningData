@@ -1,101 +1,59 @@
-# run_analysis.R
+
 
 run_ana <- function() {
   library(dplyr)
   library(stringr)
-
   
-# 1. merge the training and test datasets
-  # read train
-  # read test
-  # add variable <source> to each data set to identify the original table
-  # merge train and test
-  # read variable names from features table
-  # assign variable names to merged table
-    # create valid names
-    # assign valid names to merged table
-# 2. Extract only the man and std-deviation
-  # choose only mean and std-dev variables
-# 3. Use descriptive names for activities
-  # read and assign activities
-  # read and assign subjects
-  # ---------------------------------------------------------------------------
-  if(!file.exists("./data")){dir.create("./data")}
+  # load measurement data files
   
-  library(downloader)
+  # train
+  train_measurements_raw <<- raw_measurements_data("train")$measurements
+  train_activities_raw   <- raw_measurements_data("train")$activities 
+  train_subjects_raw     <- raw_measurements_data("train")$subjects 
   
-  fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-  # download(fileUrl, dest="dataset.zip", mode="wb") 
-  # unzip ("dataset.zip", exdir = "./data")
+  # test
+  test_measurements_raw <<- raw_measurements_data("test")$measurements
+  test_activities_raw   <- raw_measurements_data("test")$activities 
+  test_subjects_raw     <- raw_measurements_data("test")$subjects 
   
-
-# read common tables such as activity labels and features (column names for measurements)
-  
-  # read variable/column names. Also called features. 561 elements.
-  # rows:  561. Matches the number of columns in the measurement datasets
-  # V1:    record number
-  # V2:    variable name or feature
+  # load variable names or features
   fileName <- "./data/UCI HAR Dataset/features.txt"
-  
-  # ensure valid names for the variables. Making valid_column_names GLOBAL
-  # will read a table of the variable names after clean up
-  # rows:             561
-  # columns:          1 (returning as character vector)
-  # name of column:   nice
-  # env:              global
-  # characteristics:  variable names. No parentheses, no duplicates, no dashes, no dots
   valid_column_names <<- compose_features(fileName)
   
+  # assign correct variable names to measurement data frames
   
-  # read activity labels. They are 6 activity label variables
-  # rows: 6
-  # V1:   activity ID
-  # V2:   activity description
-  # file: "./data/UCI HAR Dataset/activity_labels.txt"
-  activity_labels <<- read.table("./data/UCI HAR Dataset/activity_labels.txt")
+  # add column names to measurements. assign features to variables in measurements datasets
+  train_measurements <<- assign_valid_names(train_measurements_raw, valid_column_names)
   
+  test_measurements  <<- assign_valid_names(test_measurements_raw, valid_column_names)
   
-# compose measurement datasets using a common function
-  # datasets: 2
-  # names:    train   test
-  # rows:     
-  # columns:  
-  # read measurement tables for training and testing
-  train <<- compose("train")
-  test  <<- compose("test")
+  # Keep only mean and std-dev variables in measurements dataset 
   
-  
-  # merge the measurement datasets for training and testing
-  # rows:     10299
-  # columns:  92
-  # contains: (1) measurements for training and tests; (2) subjects; (3) activities
-  train_test_merged <<- rbind(train, test) %>%
-    mutate(row_num = row_number())      # add row_num to be able to reorder table in the future
-  
-  # group by subjects and activities
-  by_SubjectActivity<- group_by(train_test_merged, subjects_id, activity_name)
-  
-  # summary showing the mean of mean and std columns by subects and activities
-  sum_SubjectActivity <<- summarize_at(by_SubjectActivity, .cols = mean_std_vars,
-                             .funs = mean)  
-  
-  # output of tidy dataset containing summary of subjects and activities 
-  # and the mean of selected columns.
-  write.table(sum_SubjectActivity, "sum_subjects_activities.txt")
+  keywords <- c("mean", "std")
+  train_measurements_select <<- select_columns_with_expression(train_measurements, keywords)
   
 }
 
 
 
-# compose the main data sets using a function
-# ds_name: character
-#          the name of the dataset
-#
-# return: data.frame
-#         a data frame after adding valid column names, activities, subjects; and
-#         selecting mean and standard deviation columns
+select_columns_with_expression <- function(df, keywords) {
+  
+  # Keep only mean and std-dev variables in measurements dataset 
+  matchExpression <- paste(keywords, collapse = "|")                           # pattern of keywords mean, std
+  df_ret <- select(df, matches(matchExpression, ignore.case = TRUE))   # select columns that match mean, std
+  return(df_ret)
+}
 
-compose <- function(ds_name) {
+
+assign_valid_names <- function(df, new_names) {
+  # Called by: run_ana()
+  # assign correct variable names to data frame
+  names(df) <- new_names
+  df
+}
+
+
+raw_measurements_data <- function(ds_name) {
   # read raw data sets
   measurements_fn <- "./data/UCI HAR Dataset/file/X_file.txt"
   activities_fn   <- "./data/UCI HAR Dataset/file/y_file.txt"
@@ -104,58 +62,12 @@ compose <- function(ds_name) {
   ds_files_v <- c(measurements_fn, activities_fn, subjects_fn)   # a vector of files to read
   ds_files   <- gsub("file", ds_name, ds_files_v)                # switch the identifier "_file" by "_train" or "_test"
   
-  measurements <- read.table(ds_files[1])
-  activities   <- read.table(ds_files[2])
-  subjects     <- read.table(ds_files[3])
+  mea <- read.table(ds_files[1])
+  act <- read.table(ds_files[2])
+  sub <- read.table(ds_files[3])
   
+  list(measurements=mea, activities=act, subjects=sub)
   
-  # add column names to measurements. assign features to variables in measurements dataset
-  names(measurements) <- valid_column_names           # since valid_column_names is global
-  
-  # Keep only mean and std-dev variables in measurements dataset 
-  matchExpression <- paste(c("mean", "std"), collapse = "|")                           # pattern of keywords mean, std
-  measurements <- select(measurements, matches(matchExpression, ignore.case = TRUE))   # select columns that match mean, std
-  
-  mean_std_vars <<- names(measurements)
-  
-  # read activity records for measurements for training and testing
-  # read subjects records for measurements for training and testing  
-  
-  # add row numbers to activity table. It will be useful to check the merge or join later
-  activities$activity_rownum <- 1:nrow(activities)      # row numbering to column
-  activities <- rename(activities, activity_id = V1)    # rename column
-  
-  # add row number variable to subjects table. It will be useful to check the merge or join later
-  subjects <- subjects %>%
-    mutate(subjects_rownum = row_number()) %>%          # row numbering to column
-    rename(subjects_id = V1)                            # rename column
-  
-  
-  # merge the activity tables (long and descriptive) keeping the original order of test_activity
-  activity_merged <- dplyr::inner_join(activities, activity_labels, by =c( "activity_id" = "V1"))
-  activity_merged <- dplyr::rename(activity_merged, activity_name = V2) # rename columns
-  
-  # add a row number column to measurements to be sure it is not sorted by the merge operation
-  measurements <- measurements %>%
-    mutate(m_rownum = row_number()) %>%   # add a record number to measurements
-    select(m_rownum, everything())        # move the row_num column to be the first column
-  
-  # merge measurements with activity table
-  m0 <- cbind(activity_merged, measurements)
-  
-  # merge new table above with subjects table
-  final <- cbind(subjects, m0)
-  rm(m0)                                      # remove temporary object
-  
-  # add a variable to identify the source of the data
-  final <- final %>%
-    mutate(source = ds_name) %>%                                                                 # new column for source
-    # add new column combining source and record number
-    mutate(src_rownum = paste0(source, "_", str_pad(as.character(m_rownum), 5, pad = "0"))) %>%  # add column with source and row num
-    select(-c(m_rownum, activity_rownum, subjects_rownum))                                       # remove utility columns
-  
-  # return processed dataframe
-  return (final)       
 }
 
 
@@ -234,9 +146,9 @@ compose_features <- function(fileName) {
   features_new$nice    # return only one column
 }
 
-
-
 make_nice_variables <- function(column_names) {
+  # Called by:         compose_features()
+  #
   # Use recommendations for variable names
   # no dots, no dashes, no underscores, no capitalization, no uppercase
   #
@@ -250,6 +162,8 @@ make_nice_variables <- function(column_names) {
 
 
 noblankElements <- function(x) {
+  # Called by:     make_nice_variables()
+  #
   # receives a list of characters that has been split
   # and returns the concatenation of not-blank elements in lowercase
   #
@@ -262,32 +176,13 @@ noblankElements <- function(x) {
 }
 
 
-duplicates <- function(vec) {
+duplicates  <- function(vec) {
+  # Called by: compose_features()
+  #
   # Detects variable names that are duplicate
   #
   # vec:     character vector or column from a table to analyze
   # return:  integer
   #          number of rows that are duplicate
   duplicate_rows <- length(vec[(duplicated(vec) | duplicated(vec, fromLast = TRUE))])  
-}
-
-short_summary <- function(df) {
-  # custom short report
-  # df:   data frame
-  # 
-  cat("Observations:", "\t", nrow(df), "\t\t\t")
-  cat("First variables:", head(names(df)), "\n")
-  cat("Variables:", "\t", length(names(df)), "\t\t\t")
-  cat("Last variables:", tail(names(df)), "\n\n")
-  #cat("First                                   Middle                           Last\n")
-  s <- seq(from=1, to=length(df), length.out = 5 )
-  all_names.df <- names(df)
-  names.df <- all_names.df[s]
-  to_desc <- select(df, one_of(names.df))
-  
-  cat("First observations\n")
-  print(head(to_desc))
-  cat("\n")
-  cat("Summary of selected variables")
-  summary(to_desc)
 }
