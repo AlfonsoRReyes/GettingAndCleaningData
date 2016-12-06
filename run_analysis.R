@@ -7,18 +7,18 @@ run_ana <- function() {
   # load measurement data files
   
   # train
-  train_measurements_raw <<- raw_measurements_data("train")$measurements
+  train_measurements_raw <- raw_measurements_data("train")$measurements
   train_activities_raw   <- raw_measurements_data("train")$activities 
   train_subjects_raw     <- raw_measurements_data("train")$subjects 
   
   # test
-  test_measurements_raw <<- raw_measurements_data("test")$measurements
+  test_measurements_raw <- raw_measurements_data("test")$measurements
   test_activities_raw   <- raw_measurements_data("test")$activities 
   test_subjects_raw     <- raw_measurements_data("test")$subjects 
   
   # load variable names or features
   fileName <- "./data/UCI HAR Dataset/features.txt"
-  valid_column_names <<- compose_features(fileName)
+  valid_column_names <- compose_features(fileName)
   
   # read activity labels. They are 6 activity label variables
   activity_labels <<- read.table("./data/UCI HAR Dataset/activity_labels.txt")
