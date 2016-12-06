@@ -21,12 +21,12 @@ run_ana <- function() {
   valid_column_names <- compose_features(fileName)
   
   # read activity labels. They are 6 activity label variables
-  activity_labels <<- read.table("./data/UCI HAR Dataset/activity_labels.txt")
+  activity_labels <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
   
   # assign correct variable names to measurement data frames
   # add column names to measurements. assign features to variables in measurements datasets
-  train_measurements <<- assign_valid_names(train_measurements_raw, valid_column_names)
-  test_measurements  <<- assign_valid_names(test_measurements_raw,  valid_column_names)
+  train_measurements <- assign_valid_names(train_measurements_raw, valid_column_names)
+  test_measurements  <- assign_valid_names(test_measurements_raw,  valid_column_names)
   
   # Keep only mean and std-dev variables in measurements dataset 
   
