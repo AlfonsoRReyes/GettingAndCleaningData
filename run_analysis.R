@@ -31,18 +31,17 @@ run_ana <- function() {
   # Keep only mean and std-dev variables in measurements dataset 
   
   keywords <- c("mean", "std")
-  train_measurements_select <<- select_columns_with_expression(train_measurements, keywords)
-  test_measurements_select  <<- select_columns_with_expression(test_measurements,  keywords)
+  train_measurements_select <- select_columns_with_expression(train_measurements, keywords)
+  test_measurements_select  <- select_columns_with_expression(test_measurements,  keywords)
   
-
   
   # add activity labels to raw acitivities
-  train_activities_with_labels <<- merge_activity_labels(train_activities_raw, activity_labels)
-  test_activities_with_labels  <<- merge_activity_labels(test_activities_raw,  activity_labels)
+  train_activities_with_labels <- merge_activity_labels(train_activities_raw, activity_labels)
+  test_activities_with_labels  <- merge_activity_labels(test_activities_raw,  activity_labels)
   
   # merge measurements, activities and subjects
-  train_merged <<- merge_all(train_measurements_select, train_activities_with_labels, train_subjects_raw)
-  test_merged  <<- merge_all(test_measurements_select,  test_activities_with_labels,  test_subjects_raw)
+  train_merged <- merge_all(train_measurements_select, train_activities_with_labels, train_subjects_raw)
+  test_merged  <- merge_all(test_measurements_select,  test_activities_with_labels,  test_subjects_raw)
   
   # merge the measurement datasets for training and testing
   # rows:     10299
