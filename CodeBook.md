@@ -22,6 +22,12 @@ This shows a summary of the `train` data frame after loading the file `X_train.t
 
 ```r
 library(dplyr)
+```
+
+
+
+```r
+library(dplyr)
 source("run_analysis.R")
 train <- read.table("./data/UCI HAR Dataset/train/X_train.txt")    # read test dataset: 62.9 MB
 short_summary(train)
@@ -421,18 +427,92 @@ $all_rows
 $duplicates
 [1] 126
 ```
-We can see from the results above that there are 126 duplicate variable names out of a total of 561. We find them by using the R function `duplicated()`, reading from both sides, the beginning of the vector and from the end of the vector. We do this to force the inclusion of the original variables that were causing the repetition and not only the repeating variables.
-
+We can see from the results above that there are 126 duplicate variable names out of a total of 561. We find them by using the R function `duplicated()`, reading from both sides, the beginning of the vector and from the end of the vector. We do this to force the inclusion of the original variables that were causing the repetition and not only the repeating variables. This is why the extended form of duplicated() is used: `duplicated(features$V2, fromLast = TRUE)`.
 
 
 ## Mark variable names that are repeating
+At this point we have detected 126 duplicates. But we need a way to store the good and bad variables names for further processing. In lieue of this, we create a utility data frame called `features2` that will hold all the variable names. To mark the duplicates we add a column called `duplicate` where we store the logical status; `FALSE` if the variable is no duplicate, or `TRUE` if the variable is duplicate.
+
+
+```r
+  # create features with logical marker for duplicates
+  features2 <- features %>%
+    mutate(duplicate = FALSE) %>%    # mark the whole new column as FALSE
+    mutate(duplicate = (duplicated(V2) | duplicated(V2, fromLast = TRUE)))  # mark TRUE duplicates
+```
+
+The data frame looks like this when we show just a few of the variables.
+
+```r
+features2[c(1, 100, 303, 317, 561), ]
+```
+
+```
+     V1                         V2 duplicate
+1     1          tBodyAcc-mean()-X     FALSE
+100 100       tBodyAccJerk-iqr()-X     FALSE
+303 303 fBodyAcc-bandsEnergy()-1,8      TRUE
+317 317 fBodyAcc-bandsEnergy()-1,8      TRUE
+561 561       angle(Z,gravityMean)     FALSE
+```
+It can be seen here that the rows 303 and 317, just for an example, are duplicate. If we don't remove, we could not be talking about a tidy dataset. 
+
 
 ## Find why the variable is repeating its name
+To find out why the variables have repeating names we could take a look at the first group of variables that have this problem. The explanation is this:
 
-## what are the columns that are repeating
+* There are 126 duplicate variable names out of 561 total. These variables have something in common: they are measurements taken for three different type of bin.
+
+* These bins have a window range with three types of steps (8, 16 and 24). And all they finish at the bin 64, for the first two, and 48 for the latter. The only thing that changes is the step. For each of these a window number is assigned.
+
+* If we add these bins we get a total of 8, 4 and 2, or 14 bin sets. Let's see how they look:
+
+
+```r
+print(features2[303:319,])
+```
+
+```
+     V1                           V2 duplicate
+303 303   fBodyAcc-bandsEnergy()-1,8      TRUE
+304 304  fBodyAcc-bandsEnergy()-9,16      TRUE
+305 305 fBodyAcc-bandsEnergy()-17,24      TRUE
+306 306 fBodyAcc-bandsEnergy()-25,32      TRUE
+307 307 fBodyAcc-bandsEnergy()-33,40      TRUE
+308 308 fBodyAcc-bandsEnergy()-41,48      TRUE
+309 309 fBodyAcc-bandsEnergy()-49,56      TRUE
+310 310 fBodyAcc-bandsEnergy()-57,64      TRUE
+311 311  fBodyAcc-bandsEnergy()-1,16      TRUE
+312 312 fBodyAcc-bandsEnergy()-17,32      TRUE
+313 313 fBodyAcc-bandsEnergy()-33,48      TRUE
+314 314 fBodyAcc-bandsEnergy()-49,64      TRUE
+315 315  fBodyAcc-bandsEnergy()-1,24      TRUE
+316 316 fBodyAcc-bandsEnergy()-25,48      TRUE
+317 317   fBodyAcc-bandsEnergy()-1,8      TRUE
+318 318  fBodyAcc-bandsEnergy()-9,16      TRUE
+319 319 fBodyAcc-bandsEnergy()-17,24      TRUE
+```
+On purpose, two bin sets are included to notice the repetition. This is clear in rows 303 and 317, the variable names start repeating.
+
+
+```r
+print(features2[c(303,317),])
+```
+
+```
+     V1                         V2 duplicate
+303 303 fBodyAcc-bandsEnergy()-1,8      TRUE
+317 317 fBodyAcc-bandsEnergy()-1,8      TRUE
+```
+
 
 
 ## Dealing with the repeating columns
+These 126 variable names are corrected by adding their bin window and the corresponding axis for the observation. There are three axis: x, y and z. For instance, if the correction by window and axis is not performed, then a variable name such as fnnxnxn() would repeat three times per axis, per bin window. There are 3 kinds of bin windows and 14 bins per axis. Since there are three axis, we end up with 14 x 3 x 3 = 126 variable names that will be finally corrected.
+
+This is what will be done: (1) get the bin window range which has three types of steps (8, 16 and 24); (2) calculate the step and apply the corresponding bin window name (w1, w2 or w3); (3) assign the axis to a column; (4) perform the concatenation of the original variable name with its corresponding bin window name and axis. 
+
+
 We find that there are 3 groups of variables:
 
 * fBodyAcc-bandsEnergy
@@ -445,9 +525,105 @@ The windows have different resolutions: `w1` has 8 steps bins like this: 1-8, [9
 
 These three windows (w1, w2, w3) read over the X, Y and Z axis. To differentiate the repeating columns we will have to add the axis to each of the windows.
 
+The following code makes possible to add the bin windows and axis for the measurement. 
 
 
-## Assign descriptive names to train data set
+```r
+  # get subset of features. working only with subset of duplicates
+  
+  getFromLast <- function(y, m) {
+    # function that gets the first or second elements -counting from the end-, of a decomposed string
+    pat <- "\\,|\\-"                   # pattern is a comma or a dash
+    var_list <- strsplit(y, pat)       # split the string by the pattern
+    last2 <- data.frame(t(data.frame(sapply(var_list, tail, n=2))))     # get the last two elements of the list
+    as.character(last2[, m])    # get character vector all rows, column "m"
+  }
+  
+  fill_axis <- function() {
+    # function to fill  rows with corresponding measurement axis
+    # get a vector of X, Y, Z every fourteen
+    x <- rep("x", 14); y <- rep("y", 14); z <- rep("z", 14); 
+    xyz <- rep(c(x,y,z), 3)  
+  }
+  
+  
+  # operate on a dataframe of duplicates only
+  features_dup <- features2 %>%
+    filter(duplicate == TRUE) %>%      # duplicate features or column names
+    mutate(lbin = as.integer(getFromLast(as.character(V2), 1))) %>%    # get the first bin set
+    mutate(rbin = as.integer(getFromLast(as.character(V2), 2))) %>%    # get the second bin set
+    mutate(window = ifelse(abs(lbin-rbin)+1 == 8, "w1", 
+                           ifelse(abs(lbin-rbin)+1 == 16, "w2", 
+                                  ifelse(abs(lbin-rbin)+1 == 24, "w3", "")))) %>%   # assign the bin windows
+    mutate(axis = fill_axis()) %>%                                                  # assign the axis labels
+    mutate(V2_new = paste(V2, window, axis, sep="-")) %>%                           # form the full name of the new column
+    select(V1, V2_new)                                                              # select the id and the new column name
+```
+
+The variables after the correction will look like this:
+
+
+```r
+features_dup$V2[features_dup$V1 == "303" | features_dup$V1 == "317"]
+```
+
+```
+[1] "fBodyAcc-bandsEnergy()-1,8-w1-x" "fBodyAcc-bandsEnergy()-1,8-w1-y"
+```
+This fixes the problem with the duplicate variable names. Next, is to remove the dashes, underscores, capitalization, dots from the variable names.
+
+## Making nice variable names
+
+
+```r
+  # merge the original dataframe with the duplicates dataframe
+  features_new <- merge(features2, features_dup, by.x = "V1", by.y = "V1", all = TRUE)
+  features_new <- mutate(features_new, V2_new = ifelse(duplicate == FALSE, as.character(V2), V2_new))
+  
+  # convert factors to character vector
+  raw_column_names <- as.character(features_new$V2_new)
+  
+  # ensure there are valid names for the variables. Making valid_column_names GLOBAL
+  valid_column_names <<- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
+  features_new$V2_valid <- valid_column_names
+  
+  # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
+  nice_variables <- make_nice_variables(features_new$V2_valid)
+  features_new$V2_nice <- nice_variables
+  
+  # find if there are duplicate rows
+  duplicate_rows <- duplicates(features_new$V2_nice)
+  
+  # set new names to final dataframe
+  features_new <- features_new %>%      # proceed to rename to something human
+    rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
+  
+  features_new[303:317, c("original", "nice")]    # return only one column
+```
+
+```
+                        original                       nice
+303   fBodyAcc-bandsEnergy()-1,8   fbodyaccbandsenergy18w1x
+304  fBodyAcc-bandsEnergy()-9,16  fbodyaccbandsenergy916w1x
+305 fBodyAcc-bandsEnergy()-17,24 fbodyaccbandsenergy1724w1x
+306 fBodyAcc-bandsEnergy()-25,32 fbodyaccbandsenergy2532w1x
+307 fBodyAcc-bandsEnergy()-33,40 fbodyaccbandsenergy3340w1x
+308 fBodyAcc-bandsEnergy()-41,48 fbodyaccbandsenergy4148w1x
+309 fBodyAcc-bandsEnergy()-49,56 fbodyaccbandsenergy4956w1x
+310 fBodyAcc-bandsEnergy()-57,64 fbodyaccbandsenergy5764w1x
+311  fBodyAcc-bandsEnergy()-1,16  fbodyaccbandsenergy116w2x
+312 fBodyAcc-bandsEnergy()-17,32 fbodyaccbandsenergy1732w2x
+313 fBodyAcc-bandsEnergy()-33,48 fbodyaccbandsenergy3348w2x
+314 fBodyAcc-bandsEnergy()-49,64 fbodyaccbandsenergy4964w2x
+315  fBodyAcc-bandsEnergy()-1,24  fbodyaccbandsenergy124w3x
+316 fBodyAcc-bandsEnergy()-25,48 fbodyaccbandsenergy2548w3x
+317   fBodyAcc-bandsEnergy()-1,8   fbodyaccbandsenergy18w1y
+```
+We can see now that the duplicate problem has been fixed. Both, the original variable name and the new name or nice, are shown side by side.
+
+
+
+## Assign descriptive names to the train data set
 
 ## Keep only mean and std-dev variables
 
