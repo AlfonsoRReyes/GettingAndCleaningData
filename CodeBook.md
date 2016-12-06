@@ -21,13 +21,15 @@ This shows a summary of the `train` data frame after loading the file `X_train.t
 
 
 ```r
+rm(list=ls(all=TRUE))
 library(dplyr)
+library(stringr)
 ```
 
 
 
 ```r
-library(dplyr)
+# library(dplyr)
 source("run_analysis.R")
 train <- read.table("./data/UCI HAR Dataset/train/X_train.txt")    # read test dataset: 62.9 MB
 short_summary(train)
@@ -72,8 +74,8 @@ This shows a summary of the `test` data frame after loading the file `X_test.txt
 
 
 ```r
-library(dplyr)
-source("run_analysis.R")
+# library(dplyr)
+# source("run_analysis.R")
 test <- read.table("./data/UCI HAR Dataset/test/X_test.txt")    # read test dataset: 25.2 MB
 short_summary(test)
 ```
@@ -399,6 +401,35 @@ Once the variable names have been processed, an object `valid_column_names` will
 ```
 
 
+```r
+valid_column_names[10:50]
+```
+
+```
+ [1] "tbodyaccmaxx"          "tbodyaccmaxy"         
+ [3] "tbodyaccmaxz"          "tbodyaccminx"         
+ [5] "tbodyaccminy"          "tbodyaccminz"         
+ [7] "tbodyaccsma"           "tbodyaccenergyx"      
+ [9] "tbodyaccenergyy"       "tbodyaccenergyz"      
+[11] "tbodyacciqrx"          "tbodyacciqry"         
+[13] "tbodyacciqrz"          "tbodyaccentropyx"     
+[15] "tbodyaccentropyy"      "tbodyaccentropyz"     
+[17] "tbodyaccarcoeffx1"     "tbodyaccarcoeffx2"    
+[19] "tbodyaccarcoeffx3"     "tbodyaccarcoeffx4"    
+[21] "tbodyaccarcoeffy1"     "tbodyaccarcoeffy2"    
+[23] "tbodyaccarcoeffy3"     "tbodyaccarcoeffy4"    
+[25] "tbodyaccarcoeffz1"     "tbodyaccarcoeffz2"    
+[27] "tbodyaccarcoeffz3"     "tbodyaccarcoeffz4"    
+[29] "tbodyacccorrelationxy" "tbodyacccorrelationxz"
+[31] "tbodyacccorrelationyz" "tgravityaccmeanx"     
+[33] "tgravityaccmeany"      "tgravityaccmeanz"     
+[35] "tgravityaccstdx"       "tgravityaccstdy"      
+[37] "tgravityaccstdz"       "tgravityaccmadx"      
+[39] "tgravityaccmady"       "tgravityaccmadz"      
+[41] "tgravityaccmaxx"      
+```
+
+
 
 
 
@@ -598,7 +629,9 @@ This fixes the problem with the duplicate variable names. Next, is to remove the
   features_new <- features_new %>%      # proceed to rename to something human
     rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
   
-  features_new[303:317, c("original", "nice")]    # return only one column
+  ## features_new$nice    # return only one column. Used only in the run_analysis.R script
+  
+  features_new[303:317, c("original", "nice")]    # return only one column. Use only in the CodeBook.md
 ```
 
 ```
@@ -619,13 +652,95 @@ This fixes the problem with the duplicate variable names. Next, is to remove the
 316 fBodyAcc-bandsEnergy()-25,48 fbodyaccbandsenergy2548w3x
 317   fBodyAcc-bandsEnergy()-1,8   fbodyaccbandsenergy18w1y
 ```
-We can see now that the duplicate problem has been fixed. Both, the original variable name and the new name or nice, are shown side by side.
+We can see now that the duplicate problem has been fixed. Both, the original variable name and the new name or nice, are shown side by side. Additionally, it can be noticed at the end that the row 317, which was a duplicate value of row 303, now it is showing corrected on the `nice` column.
 
 
 
 ## Assign descriptive names to the train data set
+Now that the variable names have been fixed regarding the duplicates and the naming convention, it is time to assign these variable names to the measurements data frames `train` and `test`. The process to fix the variable names is all performed inside the function `compose_features()`. This functions returns a vector of corrected or fixed names which will be assigned to the variable `valid_column_names`. Like this:
 
-## Keep only mean and std-dev variables
+                        `valid_column_names <<- compose_features(fileName)`
+
+This variable is then used inside the function `compose()` where it is used to replace the original variable names in the data frames `train` and `test`. 
+
+
+The `compose` function receives the name of the dataset, for instance, `train` or `test`, will replace this string in the file name objects:
+
+      measurements_fn <- "./data/UCI HAR Dataset/file/X_file.txt"
+      activities_fn   <- "./data/UCI HAR Dataset/file/y_file.txt"
+      subjects_fn     <- "./data/UCI HAR Dataset/file/subject_file.txt"
+      
+by using the `gsub()` function:
+
+    ds_files_v <- c(measurements_fn, activities_fn, subjects_fn)   # a vector of files to read
+    ds_files   <- gsub("file", ds_name, ds_files_v)                # switch the identifier "_file" by "_train" or "_test"
+    
+replacing the keyword _file_ by `test` or `train`. Then, will proceed to read the corresponding files and create the data frames:
+
+    measurements <- read.table(ds_files[1])
+    activities   <- read.table(ds_files[2])
+    subjects     <- read.table(ds_files[3])
+
+
+Let's see how this is done showing the before and after. This is just a little part of the code for explanation purposes. The complete code is in the script `run_analysis.R`.
+
+This reads the data from the `train` dataset file:
+
+
+```r
+  train_fn <- "./data/UCI HAR Dataset/train/X_train.txt"
+  train_raw    <- read.table(train_fn)
+```
+
+
+At this point, then, we have just have raw data in the table. Let's take a look at the data frame variable names:
+
+
+```r
+head(names(train_raw))
+```
+
+```
+[1] "V1" "V2" "V3" "V4" "V5" "V6"
+```
+
+```r
+tail(names(train_raw))
+```
+
+```
+[1] "V556" "V557" "V558" "V559" "V560" "V561"
+```
+These are the variable names from the raw data frame. Let's see them after they are reassigned after the variable names have been fixed. We will use the function `compose()` which make this transformation when we send `ds_name` with the `train` dataset name:
+
+
+
+
+
+```r
+train  <- compose("train")
+```
+
+And we show few of the variable names: 
+
+```r
+names(train[10:20])
+```
+
+```
+ [1] "tgravityaccmeanx"  "tgravityaccmeany"  "tgravityaccmeanz" 
+ [4] "tgravityaccstdx"   "tgravityaccstdy"   "tgravityaccstdz"  
+ [7] "tbodyaccjerkmeanx" "tbodyaccjerkmeany" "tbodyaccjerkmeanz"
+[10] "tbodyaccjerkstdx"  "tbodyaccjerkstdy" 
+```
+
+
+We see that that the `train` data frame has now correct, fixed, non-duplicate names as well as any special characters have been removed. __According to the recommendations from Jeff Leaek during the class we should not allow spaces, underscores, dashes, capital letters or uppercase. Lowercase is preferred.__
+
+We do the same thing for the `test` data frame using the `compose()` function. Now, we will select only the variable names that have the keywords `mean` and `std` (for standard deviation).
+
+
+## Keeping only mean and std-dev variables
 
 
 ## Read subjects dataset
