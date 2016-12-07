@@ -1176,276 +1176,727 @@ download_from_source <-function(fromSource = FALSE) {
 This is the list of selected variables (mean and standard deviation) that are part of the summary by _Subjects_ and _Activities_.
 
 
-  V1  nice                                sensor          stats   acc_source   domain    
-----  ----------------------------------  --------------  ------  -----------  ----------
-   1  tbodyaccmeanx                       accelerometer   mean    Body         time      
-   2  tbodyaccmeany                       accelerometer   mean    Body         time      
-   3  tbodyaccmeanz                       accelerometer   mean    Body         time      
-  41  tgravityaccmeanx                    accelerometer   mean    Body         time      
-  42  tgravityaccmeany                    accelerometer   mean    Body         time      
-  43  tgravityaccmeanz                    accelerometer   mean    Body         time      
- 121  tbodygyromeanx                      accelerometer   mean    Gravity      time      
- 122  tbodygyromeany                      accelerometer   mean    Gravity      time      
- 123  tbodygyromeanz                      accelerometer   mean    Gravity      time      
- 201  tbodyaccmagmean                     accelerometer   mean    Gravity      time      
- 214  tgravityaccmagmean                  accelerometer   mean    Gravity      time      
- 240  tbodygyromagmean                    accelerometer   mean    Gravity      time      
-  81  tbodyaccjerkmeanx                   accelerometer   mean    Body         time      
-  82  tbodyaccjerkmeany                   accelerometer   mean    Body         time      
-  83  tbodyaccjerkmeanz                   accelerometer   mean    Body         time      
-  84  tbodyaccjerkstdx                    accelerometer   std     Body         time      
-  85  tbodyaccjerkstdy                    accelerometer   std     Body         time      
-  86  tbodyaccjerkstdz                    accelerometer   std     Body         time      
- 424  fbodygyromeanx                      accelerometer   mean    Body         frequency 
- 425  fbodygyromeany                      accelerometer   mean    Body         frequency 
- 426  fbodygyromeanz                      accelerometer   mean    Gravity      frequency 
- 452  fbodygyromeanfreqx                  accelerometer   mean    Gravity      frequency 
- 227  tbodyaccjerkmagmean                 accelerometer   mean    Body         time      
- 228  tbodyaccjerkmagstd                  accelerometer   std     Body         time      
- 503  fbodyaccmagmean                     accelerometer   mean    Body         frequency 
- 513  fbodyaccmagmeanfreq                 accelerometer   mean    Body         frequency 
- 529  fbodybodygyromagmean                accelerometer   mean    Body         frequency 
- 539  fbodybodygyromagmeanfreq            accelerometer   mean    Body         frequency 
- 555  angletbodyaccmeangravity            accelerometer   mean    Body         time      
- 557  angletbodygyromeangravitymean       accelerometer   mean    Body         time      
- 559  anglexgravitymean                   accelerometer   mean    Body         none      
- 560  angleygravitymean                   accelerometer   mean    Body         none      
- 561  anglezgravitymean                   accelerometer   mean    Body         none      
- 345  fbodyaccjerkmeanx                   accelerometer   mean    Body         frequency 
- 346  fbodyaccjerkmeany                   accelerometer   mean    Body         frequency 
- 347  fbodyaccjerkmeanz                   accelerometer   mean    Body         frequency 
- 348  fbodyaccjerkstdx                    accelerometer   std     Body         frequency 
- 349  fbodyaccjerkstdy                    accelerometer   std     Body         frequency 
- 350  fbodyaccjerkstdz                    accelerometer   std     Body         frequency 
- 373  fbodyaccjerkmeanfreqx               accelerometer   mean    Body         frequency 
- 374  fbodyaccjerkmeanfreqy               accelerometer   mean    Body         frequency 
- 375  fbodyaccjerkmeanfreqz               accelerometer   mean    Body         frequency 
- 202  tbodyaccmagstd                      accelerometer   std     Body         time      
- 215  tgravityaccmagstd                   accelerometer   std     Body         time      
- 241  tbodygyromagstd                     accelerometer   std     Body         time      
- 516  fbodybodyaccjerkmagmean             accelerometer   mean    Body         frequency 
- 517  fbodybodyaccjerkmagstd              accelerometer   std     Body         frequency 
- 526  fbodybodyaccjerkmagmeanfreq         accelerometer   mean    Body         frequency 
- 427  fbodygyrostdx                       accelerometer   std     Body         frequency 
- 556  angletbodyaccjerkmeangravitymean    accelerometer   mean    Body         time      
- 429  fbodygyrostdz                       accelerometer   std     Gravity      frequency 
- 504  fbodyaccmagstd                      accelerometer   std     Gravity      frequency 
- 530  fbodybodygyromagstd                 accelerometer   std     Gravity      frequency 
- 266  fbodyaccmeanx                       gyroscope       mean    Body         frequency 
- 267  fbodyaccmeany                       gyroscope       mean    Body         frequency 
- 268  fbodyaccmeanz                       gyroscope       mean    Body         frequency 
- 294  fbodyaccmeanfreqx                   gyroscope       mean    Body         frequency 
- 295  fbodyaccmeanfreqy                   gyroscope       mean    Body         frequency 
- 296  fbodyaccmeanfreqz                   gyroscope       mean    Body         frequency 
- 161  tbodygyrojerkmeanx                  gyroscope       mean    Body         time      
- 162  tbodygyrojerkmeany                  gyroscope       mean    Body         time      
- 163  tbodygyrojerkmeanz                  gyroscope       mean    Body         time      
- 164  tbodygyrojerkstdx                   gyroscope       std     Body         time      
- 165  tbodygyrojerkstdy                   gyroscope       std     Body         time      
- 166  tbodygyrojerkstdz                   gyroscope       std     Body         time      
- 453  fbodygyromeanfreqy                  gyroscope       mean    Body         frequency 
- 454  fbodygyromeanfreqz                  gyroscope       mean    Body         frequency 
- 253  tbodygyrojerkmagmean                gyroscope       mean    Body         time      
- 254  tbodygyrojerkmagstd                 gyroscope       std     Body         time      
-   4  tbodyaccstdx                        gyroscope       std     Body         time      
-   5  tbodyaccstdy                        gyroscope       std     Body         time      
-   6  tbodyaccstdz                        gyroscope       std     Body         time      
-  44  tgravityaccstdx                     gyroscope       std     Body         time      
-  45  tgravityaccstdy                     gyroscope       std     Body         time      
-  46  tgravityaccstdz                     gyroscope       std     Body         time      
- 124  tbodygyrostdx                       gyroscope       std     Body         time      
- 125  tbodygyrostdy                       gyroscope       std     Body         time      
- 126  tbodygyrostdz                       gyroscope       std     Body         time      
- 269  fbodyaccstdx                        gyroscope       std     Body         frequency 
- 270  fbodyaccstdy                        gyroscope       std     Body         frequency 
- 271  fbodyaccstdz                        gyroscope       std     Body         frequency 
- 542  fbodybodygyrojerkmagmean            gyroscope       mean    Body         frequency 
- 543  fbodybodygyrojerkmagstd             gyroscope       std     Body         frequency 
- 552  fbodybodygyrojerkmagmeanfreq        gyroscope       mean    Body         frequency 
- 428  fbodygyrostdy                       gyroscope       std     Body         frequency 
- 558  angletbodygyrojerkmeangravitymean   gyroscope       mean    Body         time      
-
-
 ```r
-library(pander)
+library(formattable)
+formattable(var_doc2)
+```
 
-pander(var_doc2)
+```
+Error in formattable(var_doc2): object 'var_doc2' not found
 ```
 
 
------------------------------------------------------------------------------------
- V1                nice                   sensor      stats   acc_source   domain  
----- --------------------------------- ------------- ------- ------------ ---------
- 1             tbodyaccmeanx           accelerometer  mean       Body       time   
 
- 2             tbodyaccmeany           accelerometer  mean       Body       time   
 
- 3             tbodyaccmeanz           accelerometer  mean       Body       time   
 
- 41          tgravityaccmeanx          accelerometer  mean       Body       time   
 
- 42          tgravityaccmeany          accelerometer  mean       Body       time   
+```r
+library(formattable)
+formattable(var_doc2)
+```
+
+
+<table class="table table-condensed">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> V1 </th>
+   <th style="text-align:right;"> nice </th>
+   <th style="text-align:right;"> sensor </th>
+   <th style="text-align:right;"> stats </th>
+   <th style="text-align:right;"> acc_source </th>
+   <th style="text-align:right;"> domain </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> tbodyaccmeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> tbodyaccmeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> tbodyaccmeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> tgravityaccmeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> tgravityaccmeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> tgravityaccmeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 121 </td>
+   <td style="text-align:right;"> tbodygyromeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 122 </td>
+   <td style="text-align:right;"> tbodygyromeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 123 </td>
+   <td style="text-align:right;"> tbodygyromeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 201 </td>
+   <td style="text-align:right;"> tbodyaccmagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 214 </td>
+   <td style="text-align:right;"> tgravityaccmagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 240 </td>
+   <td style="text-align:right;"> tbodygyromagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 81 </td>
+   <td style="text-align:right;"> tbodyaccjerkmeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 82 </td>
+   <td style="text-align:right;"> tbodyaccjerkmeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> tbodyaccjerkmeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:right;"> tbodyaccjerkstdx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 85 </td>
+   <td style="text-align:right;"> tbodyaccjerkstdy </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 86 </td>
+   <td style="text-align:right;"> tbodyaccjerkstdz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 424 </td>
+   <td style="text-align:right;"> fbodygyromeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 425 </td>
+   <td style="text-align:right;"> fbodygyromeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 426 </td>
+   <td style="text-align:right;"> fbodygyromeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 452 </td>
+   <td style="text-align:right;"> fbodygyromeanfreqx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 227 </td>
+   <td style="text-align:right;"> tbodyaccjerkmagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 228 </td>
+   <td style="text-align:right;"> tbodyaccjerkmagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 503 </td>
+   <td style="text-align:right;"> fbodyaccmagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 513 </td>
+   <td style="text-align:right;"> fbodyaccmagmeanfreq </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 529 </td>
+   <td style="text-align:right;"> fbodybodygyromagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 539 </td>
+   <td style="text-align:right;"> fbodybodygyromagmeanfreq </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 555 </td>
+   <td style="text-align:right;"> angletbodyaccmeangravity </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 557 </td>
+   <td style="text-align:right;"> angletbodygyromeangravitymean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 559 </td>
+   <td style="text-align:right;"> anglexgravitymean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> none </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 560 </td>
+   <td style="text-align:right;"> angleygravitymean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> none </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 561 </td>
+   <td style="text-align:right;"> anglezgravitymean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> none </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 345 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeanx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 346 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeany </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 347 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeanz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 348 </td>
+   <td style="text-align:right;"> fbodyaccjerkstdx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 349 </td>
+   <td style="text-align:right;"> fbodyaccjerkstdy </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 350 </td>
+   <td style="text-align:right;"> fbodyaccjerkstdz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 373 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeanfreqx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 374 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeanfreqy </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> fbodyaccjerkmeanfreqz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 202 </td>
+   <td style="text-align:right;"> tbodyaccmagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 215 </td>
+   <td style="text-align:right;"> tgravityaccmagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 241 </td>
+   <td style="text-align:right;"> tbodygyromagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 516 </td>
+   <td style="text-align:right;"> fbodybodyaccjerkmagmean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 517 </td>
+   <td style="text-align:right;"> fbodybodyaccjerkmagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 526 </td>
+   <td style="text-align:right;"> fbodybodyaccjerkmagmeanfreq </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 427 </td>
+   <td style="text-align:right;"> fbodygyrostdx </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 556 </td>
+   <td style="text-align:right;"> angletbodyaccjerkmeangravitymean </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 429 </td>
+   <td style="text-align:right;"> fbodygyrostdz </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 504 </td>
+   <td style="text-align:right;"> fbodyaccmagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 530 </td>
+   <td style="text-align:right;"> fbodybodygyromagstd </td>
+   <td style="text-align:right;"> accelerometer </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Gravity </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 266 </td>
+   <td style="text-align:right;"> fbodyaccmeanx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 267 </td>
+   <td style="text-align:right;"> fbodyaccmeany </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 268 </td>
+   <td style="text-align:right;"> fbodyaccmeanz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 294 </td>
+   <td style="text-align:right;"> fbodyaccmeanfreqx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 295 </td>
+   <td style="text-align:right;"> fbodyaccmeanfreqy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 296 </td>
+   <td style="text-align:right;"> fbodyaccmeanfreqz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 161 </td>
+   <td style="text-align:right;"> tbodygyrojerkmeanx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 162 </td>
+   <td style="text-align:right;"> tbodygyrojerkmeany </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 163 </td>
+   <td style="text-align:right;"> tbodygyrojerkmeanz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 164 </td>
+   <td style="text-align:right;"> tbodygyrojerkstdx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 165 </td>
+   <td style="text-align:right;"> tbodygyrojerkstdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 166 </td>
+   <td style="text-align:right;"> tbodygyrojerkstdz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 453 </td>
+   <td style="text-align:right;"> fbodygyromeanfreqy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 454 </td>
+   <td style="text-align:right;"> fbodygyromeanfreqz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 253 </td>
+   <td style="text-align:right;"> tbodygyrojerkmagmean </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 254 </td>
+   <td style="text-align:right;"> tbodygyrojerkmagstd </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> tbodyaccstdx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> tbodyaccstdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> tbodyaccstdz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> tgravityaccstdx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> tgravityaccstdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> tgravityaccstdz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 124 </td>
+   <td style="text-align:right;"> tbodygyrostdx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> tbodygyrostdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 126 </td>
+   <td style="text-align:right;"> tbodygyrostdz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 269 </td>
+   <td style="text-align:right;"> fbodyaccstdx </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 270 </td>
+   <td style="text-align:right;"> fbodyaccstdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 271 </td>
+   <td style="text-align:right;"> fbodyaccstdz </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 542 </td>
+   <td style="text-align:right;"> fbodybodygyrojerkmagmean </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 543 </td>
+   <td style="text-align:right;"> fbodybodygyrojerkmagstd </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 552 </td>
+   <td style="text-align:right;"> fbodybodygyrojerkmagmeanfreq </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 428 </td>
+   <td style="text-align:right;"> fbodygyrostdy </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> std </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> frequency </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 558 </td>
+   <td style="text-align:right;"> angletbodygyrojerkmeangravitymean </td>
+   <td style="text-align:right;"> gyroscope </td>
+   <td style="text-align:right;"> mean </td>
+   <td style="text-align:right;"> Body </td>
+   <td style="text-align:right;"> time </td>
+  </tr>
+</tbody>
+</table>
 
- 43          tgravityaccmeanz          accelerometer  mean       Body       time   
-
-121           tbodygyromeanx           accelerometer  mean     Gravity      time   
-
-122           tbodygyromeany           accelerometer  mean     Gravity      time   
-
-123           tbodygyromeanz           accelerometer  mean     Gravity      time   
-
-201           tbodyaccmagmean          accelerometer  mean     Gravity      time   
-
-214         tgravityaccmagmean         accelerometer  mean     Gravity      time   
-
-240          tbodygyromagmean          accelerometer  mean     Gravity      time   
-
- 81          tbodyaccjerkmeanx         accelerometer  mean       Body       time   
-
- 82          tbodyaccjerkmeany         accelerometer  mean       Body       time   
-
- 83          tbodyaccjerkmeanz         accelerometer  mean       Body       time   
-
- 84          tbodyaccjerkstdx          accelerometer   std       Body       time   
-
- 85          tbodyaccjerkstdy          accelerometer   std       Body       time   
-
- 86          tbodyaccjerkstdz          accelerometer   std       Body       time   
-
-424           fbodygyromeanx           accelerometer  mean       Body     frequency
-
-425           fbodygyromeany           accelerometer  mean       Body     frequency
-
-426           fbodygyromeanz           accelerometer  mean     Gravity    frequency
-
-452         fbodygyromeanfreqx         accelerometer  mean     Gravity    frequency
-
-227         tbodyaccjerkmagmean        accelerometer  mean       Body       time   
-
-228         tbodyaccjerkmagstd         accelerometer   std       Body       time   
-
-503           fbodyaccmagmean          accelerometer  mean       Body     frequency
-
-513         fbodyaccmagmeanfreq        accelerometer  mean       Body     frequency
-
-529        fbodybodygyromagmean        accelerometer  mean       Body     frequency
-
-539      fbodybodygyromagmeanfreq      accelerometer  mean       Body     frequency
-
-555      angletbodyaccmeangravity      accelerometer  mean       Body       time   
-
-557    angletbodygyromeangravitymean   accelerometer  mean       Body       time   
-
-559          anglexgravitymean         accelerometer  mean       Body       none   
-
-560          angleygravitymean         accelerometer  mean       Body       none   
-
-561          anglezgravitymean         accelerometer  mean       Body       none   
-
-345          fbodyaccjerkmeanx         accelerometer  mean       Body     frequency
-
-346          fbodyaccjerkmeany         accelerometer  mean       Body     frequency
-
-347          fbodyaccjerkmeanz         accelerometer  mean       Body     frequency
-
-348          fbodyaccjerkstdx          accelerometer   std       Body     frequency
-
-349          fbodyaccjerkstdy          accelerometer   std       Body     frequency
-
-350          fbodyaccjerkstdz          accelerometer   std       Body     frequency
-
-373        fbodyaccjerkmeanfreqx       accelerometer  mean       Body     frequency
-
-374        fbodyaccjerkmeanfreqy       accelerometer  mean       Body     frequency
-
-375        fbodyaccjerkmeanfreqz       accelerometer  mean       Body     frequency
-
-202           tbodyaccmagstd           accelerometer   std       Body       time   
-
-215          tgravityaccmagstd         accelerometer   std       Body       time   
-
-241           tbodygyromagstd          accelerometer   std       Body       time   
-
-516       fbodybodyaccjerkmagmean      accelerometer  mean       Body     frequency
-
-517       fbodybodyaccjerkmagstd       accelerometer   std       Body     frequency
-
-526     fbodybodyaccjerkmagmeanfreq    accelerometer  mean       Body     frequency
-
-427            fbodygyrostdx           accelerometer   std       Body     frequency
-
-556  angletbodyaccjerkmeangravitymean  accelerometer  mean       Body       time   
-
-429            fbodygyrostdz           accelerometer   std     Gravity    frequency
-
-504           fbodyaccmagstd           accelerometer   std     Gravity    frequency
-
-530         fbodybodygyromagstd        accelerometer   std     Gravity    frequency
-
-266            fbodyaccmeanx             gyroscope    mean       Body     frequency
-
-267            fbodyaccmeany             gyroscope    mean       Body     frequency
-
-268            fbodyaccmeanz             gyroscope    mean       Body     frequency
-
-294          fbodyaccmeanfreqx           gyroscope    mean       Body     frequency
-
-295          fbodyaccmeanfreqy           gyroscope    mean       Body     frequency
-
-296          fbodyaccmeanfreqz           gyroscope    mean       Body     frequency
-
-161         tbodygyrojerkmeanx           gyroscope    mean       Body       time   
-
-162         tbodygyrojerkmeany           gyroscope    mean       Body       time   
-
-163         tbodygyrojerkmeanz           gyroscope    mean       Body       time   
-
-164          tbodygyrojerkstdx           gyroscope     std       Body       time   
-
-165          tbodygyrojerkstdy           gyroscope     std       Body       time   
-
-166          tbodygyrojerkstdz           gyroscope     std       Body       time   
-
-453         fbodygyromeanfreqy           gyroscope    mean       Body     frequency
-
-454         fbodygyromeanfreqz           gyroscope    mean       Body     frequency
-
-253        tbodygyrojerkmagmean          gyroscope    mean       Body       time   
-
-254         tbodygyrojerkmagstd          gyroscope     std       Body       time   
-
- 4             tbodyaccstdx              gyroscope     std       Body       time   
-
- 5             tbodyaccstdy              gyroscope     std       Body       time   
-
- 6             tbodyaccstdz              gyroscope     std       Body       time   
-
- 44           tgravityaccstdx            gyroscope     std       Body       time   
-
- 45           tgravityaccstdy            gyroscope     std       Body       time   
-
- 46           tgravityaccstdz            gyroscope     std       Body       time   
-
-124            tbodygyrostdx             gyroscope     std       Body       time   
-
-125            tbodygyrostdy             gyroscope     std       Body       time   
-
-126            tbodygyrostdz             gyroscope     std       Body       time   
-
-269            fbodyaccstdx              gyroscope     std       Body     frequency
-
-270            fbodyaccstdy              gyroscope     std       Body     frequency
-
-271            fbodyaccstdz              gyroscope     std       Body     frequency
-
-542      fbodybodygyrojerkmagmean        gyroscope    mean       Body     frequency
-
-543       fbodybodygyrojerkmagstd        gyroscope     std       Body     frequency
-
-552    fbodybodygyrojerkmagmeanfreq      gyroscope    mean       Body     frequency
-
-428            fbodygyrostdy             gyroscope     std       Body     frequency
-
-558  angletbodygyrojerkmeangravitymean   gyroscope    mean       Body       time   
------------------------------------------------------------------------------------
 
