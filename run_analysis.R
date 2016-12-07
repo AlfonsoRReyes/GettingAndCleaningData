@@ -225,17 +225,9 @@ add_logical_marker_for_dups <- function(features) {
   return(features2)
 }
 
-compose_features <- function(df) {
-  # takes care of the proper validation of the variables names in features
- 
-  features <- df
-  
-  all_rows   <- get_duplicates_count(features)$all_rows
-  duplicates <- get_duplicates_count(features)$all_rows
-  
-  features2 <- add_logical_marker_for_dups(features)
-  
-  # get subset of features. working only with subset of duplicates
+
+fix_duplicates <- function(features2) {
+  # operate on a dataframe of duplicates only
   
   getFromLast <- function(y, m) {
     # function that gets the first or second elements -counting from the end-, of a decomposed string
@@ -253,7 +245,6 @@ compose_features <- function(df) {
   }
   
   
-  # operate on a dataframe of duplicates only
   features_dup <- features2 %>%
     filter(duplicate == TRUE) %>%      # duplicate features or column names
     mutate(lbin = as.integer(getFromLast(as.character(V2), 1))) %>%    # get the first bin set
@@ -265,9 +256,31 @@ compose_features <- function(df) {
     mutate(V2_new = paste(V2, window, axis, sep="-")) %>%                           # form the full name of the new column
     select(V1, V2_new)                                                              # select the id and the new column name
   
+  return(features_dup)
+}
+
+merge_with_duplicates <- function(features2, features_dup) {
+  features_merged <- merge(features2, features_dup, by.x = "V1", by.y = "V1", all = TRUE)
+  features_merged <- mutate(features_merged, V2_new = ifelse(duplicate == FALSE, as.character(V2), V2_new))
+  return(features_merged)
+}
+
+compose_features <- function(df) {
+  # takes care of the proper validation of the variables names in features
+ 
+  features <- df
+  
+  all_rows   <- get_duplicates_count(features)$all_rows
+  duplicates <- get_duplicates_count(features)$all_rows
+  
+  # add logical marker for duplicates
+  features2 <- add_logical_marker_for_dups(features)
+  
+  # get subset of features. working only with subset of duplicates
+  features_dup <- fix_duplicates(features2)
+
   # merge the original dataframe with the duplicates dataframe
-  features_new <- merge(features2, features_dup, by.x = "V1", by.y = "V1", all = TRUE)
-  features_new <- mutate(features_new, V2_new = ifelse(duplicate == FALSE, as.character(V2), V2_new))
+  features_new <- merge_with_duplicates(features2, features_dup)
   
   # convert factors to character vector
   raw_column_names <- as.character(features_new$V2_new)
