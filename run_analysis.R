@@ -1,6 +1,6 @@
 # run_analysis.R
 
-run_ana <- function() {
+run_ana <- function(fromSource = FALSE) {
   # main function
   # This function will perform these tasks:
   # merge the training and test datasets
@@ -20,6 +20,8 @@ run_ana <- function() {
   # --------------------------------------------------------------------------
   library(dplyr)
   library(stringr)
+  
+  download_from_source(fromSource = FALSE)    # download from original source if TRUE
   
   # load measurement data files
   
@@ -103,6 +105,29 @@ run_ana <- function() {
 }
 
 
+###############################################
+raw_measurements_data <- function(ds_name) {
+  # read all raw measurement data sets
+  # it will return a list that will be parse in the main function
+  
+  # filenames
+  measurements_fn <- "./data/UCI HAR Dataset/file/X_file.txt"
+  activities_fn   <- "./data/UCI HAR Dataset/file/y_file.txt"
+  subjects_fn     <- "./data/UCI HAR Dataset/file/subject_file.txt"
+  
+  # replace <file> by <train> or <test>
+  ds_files_v <- c(measurements_fn, activities_fn, subjects_fn)   # a vector of files to read
+  ds_files   <- gsub("file", ds_name, ds_files_v)                # switch the identifier "_file" by "_train" or "_test"
+  
+  # this will make the list more readable
+  mea <- read.table(ds_files[1])
+  act <- read.table(ds_files[2])
+  sub <- read.table(ds_files[3])
+  
+  return(list(measurements=mea, activities=act, subjects=sub))
+}
+
+
 get_variables_matching_keywords <- function(column_names, keywords) {
   # get a vector of variable names that match the keywords
   # Called by: run_ana()
@@ -181,26 +206,6 @@ assign_valid_names <- function(df, new_names) {
 }
 
 
-raw_measurements_data <- function(ds_name) {
-  # read all raw measurement data sets
-  # it will return a list that will be parse in the main function
-  
-  # filenames
-  measurements_fn <- "./data/UCI HAR Dataset/file/X_file.txt"
-  activities_fn   <- "./data/UCI HAR Dataset/file/y_file.txt"
-  subjects_fn     <- "./data/UCI HAR Dataset/file/subject_file.txt"
-  
-  # replace <file> by <train> or <test>
-  ds_files_v <- c(measurements_fn, activities_fn, subjects_fn)   # a vector of files to read
-  ds_files   <- gsub("file", ds_name, ds_files_v)                # switch the identifier "_file" by "_train" or "_test"
-  
-  # this will make the list more readable
-  mea <- read.table(ds_files[1])
-  act <- read.table(ds_files[2])
-  sub <- read.table(ds_files[3])
-  
-  return(list(measurements=mea, activities=act, subjects=sub))
-}
 
 
 get_duplicates_count <- function(features, V2) {
@@ -398,4 +403,18 @@ short_summary <- function(df) {
   cat("\n")
   cat("Summary of selected variables")
   summary(to_desc)
+}
+
+download_from_source <-function(fromSource = FALSE) {
+  # this will download the dataset file from the original source if TRUE
+  # sometime we mess up with the files. This is a back up measure
+  if (fromSource == TRUE) {
+    library(downloader)
+    if(!file.exists("./data")){dir.create("./data")}
+    
+    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    download(fileUrl, dest="dataset.zip", mode="wb") 
+    unzip ("dataset.zip", exdir = "./data")
+  }
+
 }
