@@ -1,6 +1,23 @@
-
+# run_analysis.R
 
 run_ana <- function() {
+  # main function
+  # This function will perform these tasks:
+  # merge the training and test datasets
+  # read train
+  # read test
+  # add variable <source> to each data set to identify the original table
+  # merge train and test
+  # read variable names from features table
+  # assign variable names to merged table
+  # create valid names
+  # assign valid names to merged table
+  # Extract only the man and std-deviation
+  # choose only mean and std-dev variables
+  # Use descriptive names for activities
+  # read and assign activities
+  # read and assign subjects
+  # --------------------------------------------------------------------------
   library(dplyr)
   library(stringr)
   
@@ -17,10 +34,25 @@ run_ana <- function() {
   test_subjects_raw     <- raw_measurements_data("test")$subjects 
   
   # load variable names or features
+  # read variable/column names. Also called features. 561 elements.
+  # rows:  561. Matches the number of columns in the measurement datasets
+  # V1:    record number
+  # V2:    variable name or feature
   fileName <- "./data/UCI HAR Dataset/features.txt"
-  valid_column_names <- compose_features(fileName)
+  features <- read.table(fileName)
+  
+  # ensure valid names for the variables. 
+  # rows:             561
+  # columns:          1 (returning as character vector)
+  # name of column:   nice
+  # characteristics:  variable names. No parentheses, no duplicates, no dashes, no dots
+  valid_column_names <- compose_features(features)
   
   # read activity labels. They are 6 activity label variables
+  # rows: 6
+  # V1:   activity ID
+  # V2:   activity description
+  # file: "./data/UCI HAR Dataset/activity_labels.txt"
   activity_labels <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
   
   # assign correct variable names to measurement data frames
@@ -34,6 +66,7 @@ run_ana <- function() {
   train_measurements_select <- select_columns_with_expression(train_measurements, keywords)
   test_measurements_select  <- select_columns_with_expression(test_measurements,  keywords)
   
+
   
   # add activity labels to raw acitivities
   train_activities_with_labels <- merge_activity_labels(train_activities_raw, activity_labels)
@@ -58,7 +91,6 @@ run_ana <- function() {
   # summary showing the mean of mean and std columns by subjects and activities
   # acting on the merged measurement data frames
   # mean_std_vars <<- names(measurements)       # assign select variable names (mean, std) to a vector
-  cat(valid_column_names[1:10])
   mean_std_vars <- get_variables_matching_keywords(valid_column_names, keywords)
   
   # summary
@@ -73,6 +105,8 @@ run_ana <- function() {
 
 
 get_variables_matching_keywords <- function(column_names, keywords) {
+  # get a vector of variable names that match the keywords
+  # Called by: run_ana()
   matchExpression <- paste(keywords, collapse = "|")
   select_columns <- column_names[grep(matchExpression, column_names)]
   return(select_columns)
@@ -80,7 +114,7 @@ get_variables_matching_keywords <- function(column_names, keywords) {
 
 
 merge_all <- function(measurements, activities, subjects) {
-  # merge measurements, activities and subjects
+  # merge all measurements, activities and subjects in one data frame
   
   # add row number variable to subjects table. It will be useful to check the merge or join later
   subjects <- subjects %>%
@@ -114,8 +148,10 @@ merge_all <- function(measurements, activities, subjects) {
 
 
 merge_activity_labels <- function(activities_df, activity_labels) {
+  # merge the activity labels with activities measured (train or test)
   # Called by: main()
   #
+  
   # add row numbers to activity table. It will be useful to check the merge or join later
   activities_df$activity_rownum <- 1:nrow(activities_df)      # row numbering to column
   activities_df <- rename(activities_df, activity_id = V1)    # rename column
@@ -129,7 +165,7 @@ merge_activity_labels <- function(activities_df, activity_labels) {
 
 
 select_columns_with_expression <- function(df, keywords) {
-  
+  # select only the columns that match the keywords
   # Keep only mean and std-dev variables in measurements dataset 
   matchExpression <- paste(keywords, collapse = "|")                           # pattern of keywords mean, std
   df_ret <- select(df, matches(matchExpression, ignore.case = TRUE))   # select columns that match mean, std
@@ -138,36 +174,41 @@ select_columns_with_expression <- function(df, keywords) {
 
 
 assign_valid_names <- function(df, new_names) {
+  # assign correct variable names to a data frame (train or test)
   # Called by: run_ana()
-  # assign correct variable names to data frame
-  names(df) <- new_names
-  df
+
+  names(df) <- new_names      # assign column names
+  return(df)       
 }
 
 
 raw_measurements_data <- function(ds_name) {
-  # read raw data sets
+  # read all raw measurement data sets
+  # it will return a list that will be parse in the main function
+  
+  # filenames
   measurements_fn <- "./data/UCI HAR Dataset/file/X_file.txt"
   activities_fn   <- "./data/UCI HAR Dataset/file/y_file.txt"
   subjects_fn     <- "./data/UCI HAR Dataset/file/subject_file.txt"
   
+  # replace <file> by <train> or <test>
   ds_files_v <- c(measurements_fn, activities_fn, subjects_fn)   # a vector of files to read
   ds_files   <- gsub("file", ds_name, ds_files_v)                # switch the identifier "_file" by "_train" or "_test"
   
+  # this will make the list more readable
   mea <- read.table(ds_files[1])
   act <- read.table(ds_files[2])
   sub <- read.table(ds_files[3])
   
-  list(measurements=mea, activities=act, subjects=sub)
-  
+  return(list(measurements=mea, activities=act, subjects=sub))
 }
 
 
 
-compose_features <- function(fileName) {
-  # takes care of the proper validation of the variables names
-  # features <- read.table("./data/UCI HAR Dataset/features.txt")
-  features <- read.table(fileName)
+compose_features <- function(df) {
+  # takes care of the proper validation of the variables names in features
+ 
+  features <- df
   
   # convert factors to character vector
   features <- features %>%
@@ -194,7 +235,7 @@ compose_features <- function(fileName) {
   }
   
   fill_axis <- function() {
-    # function to fill  rows with corresponding measurement axis
+    # fill rows with corresponding measurement axis
     # get a vector of X, Y, Z every fourteen
     x <- rep("x", 14); y <- rep("y", 14); z <- rep("z", 14); 
     xyz <- rep(c(x,y,z), 3)  
@@ -220,17 +261,9 @@ compose_features <- function(fileName) {
   # convert factors to character vector
   raw_column_names <- as.character(features_new$V2_new)
   
-  
-  
-  
-  
   # ensure there are valid names for the variables. Making valid_column_names GLOBAL
   valid_column_names <- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
   features_new$V2_valid <- valid_column_names
-  
-  
-  
-  
   
   # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
   nice_variables <- make_nice_variables(features_new$V2_valid)
@@ -245,6 +278,7 @@ compose_features <- function(fileName) {
   
   features_new$nice    # return only one column
 }
+
 
 make_nice_variables <- function(column_names) {
   # Called by:         compose_features()
@@ -286,3 +320,6 @@ duplicates  <- function(vec) {
   #          number of rows that are duplicate
   duplicate_rows <- length(vec[(duplicated(vec) | duplicated(vec, fromLast = TRUE))])  
 }
+
+
+
