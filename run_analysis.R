@@ -276,7 +276,23 @@ convert_to_nice_names <- function(features_new) {
   # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
   nice_variables <- make_nice_variables(features_new$V2_valid)
   features_new$V2_nice <- nice_variables
+  
+  # set new names to final dataframe
+  features_new <- features_new %>%      # proceed to rename columns to something human
+    rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
+  
   return(features_new)
+}
+
+
+prepare_features_for_export <- function(features_new) {
+  # filter only stats that are mean and standard deviation
+  keywords <- c("mean", "std")
+  features_nice_sel <- filter_rows_by_keywords(features_new, features_new$nice, keywords)  # filter by keywords
+  drop.cols <- c("isduplicate", "nonduplicate")       # columns to drop in the data frame
+  features_nice_sel <- features_nice_sel %>%
+    select(-one_of(drop.cols))                                                   # drop by specifying vector of characters
+  write.csv(features_nice_sel, "features_nice_selected.csv", row.names = FALSE)  # write to file
 }
 
 
@@ -300,19 +316,9 @@ compose_features <- function(df) {
   features_new <- convert_to_nice_names(features_new)
   
   # find if there are duplicate rows
-  duplicate_rows <- duplicates(features_new$V2_nice)
-  
-  # set new names to final dataframe
-  features_new <- features_new %>%      # proceed to rename to something human
-    rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
-  
-  # filter only stats that are mean and standard deviation
-  keywords <- c("mean", "std")
-  features_nice_sel <- filter_rows_by_keywords(features_new, features_new$nice, keywords)  # filter by keywords
-  drop.cols <- c("isduplicate", "nonduplicate")       # columns to drop in the data frame
-  features_nice_sel <- features_nice_sel %>%
-    select(-one_of(drop.cols))                                                   # drop by specifying vector of characters
-  write.csv(features_nice_sel, "features_nice_selected.csv", row.names = FALSE)  # write to file
+  duplicate_rows <- duplicates(features_new$nice)
+
+  prepare_features_for_export(features_new)
 
   features_new$nice    # return only one column
 }
