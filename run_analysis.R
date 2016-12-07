@@ -58,6 +58,7 @@ run_ana <- function() {
   # summary showing the mean of mean and std columns by subjects and activities
   # acting on the merged measurement data frames
   # mean_std_vars <<- names(measurements)       # assign select variable names (mean, std) to a vector
+  cat(valid_column_names[1:10])
   mean_std_vars <- get_variables_matching_keywords(valid_column_names, keywords)
   
   # summary
@@ -219,9 +220,17 @@ compose_features <- function(fileName) {
   # convert factors to character vector
   raw_column_names <- as.character(features_new$V2_new)
   
+  
+  
+  
+  
   # ensure there are valid names for the variables. Making valid_column_names GLOBAL
-  valid_column_names <<- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
+  valid_column_names <- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
   features_new$V2_valid <- valid_column_names
+  
+  
+  
+  
   
   # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
   nice_variables <- make_nice_variables(features_new$V2_valid)
