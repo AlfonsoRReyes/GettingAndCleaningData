@@ -311,16 +311,18 @@ compose_features <- function(df) {
   features_dup <- fix_duplicates(features2)
 
   # merge the original dataframe with the duplicates dataframe
-  features_new <- merge_with_duplicates(features2, features_dup)
+  features_merged <- merge_with_duplicates(features2, features_dup)
   
-  features_new <- convert_to_nice_names(features_new)
+  features_nice <- convert_to_nice_names(features_merged)
   
   # find if there are duplicate rows
-  duplicate_rows <- duplicates(features_new$nice)
+  duplicate_rows <- duplicates(features_nice$nice)
 
-  prepare_features_for_export(features_new)
+  # export data frame of variables to CSV file
+  prepare_features_for_export(features_nice)
 
-  features_new$nice    # return only one column
+  return(features_nice$nice)    # return only one column
+  
 }
 
 
