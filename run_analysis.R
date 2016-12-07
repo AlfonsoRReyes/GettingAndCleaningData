@@ -276,9 +276,25 @@ compose_features <- function(df) {
   features_new <- features_new %>%      # proceed to rename to something human
     rename(original = V2, isduplicate = duplicate, nonduplicate = V2_new, make = V2_valid, nice = V2_nice)
   
+  # filter only stats that are mean and standard deviation
+  keywords <- c("mean", "std")
+  features_nice_sel <- filter_rows_by_keywords(features_new, features_new$nice, keywords)  # filter by keywords
+  drop.cols <- c("isduplicate", "nonduplicate")       # columns to drop in the data frame
+  features_nice_sel <- features_nice_sel %>%
+    select(-one_of(drop.cols))                                                   # drop by specifying vector of characters
+  write.csv(features_nice_sel, "features_nice_selected.csv", row.names = FALSE)  # write to file
+
   features_new$nice    # return only one column
 }
 
+
+filter_rows_by_keywords <- function(df, col2filt, keywords) {
+  # filter rows in a data frame by including what is in the keywords
+  matchExpression <- paste(keywords, collapse = "|")        # expression to match. Only OR
+  df_filt <- filter(df, grepl(matchExpression, col2filt))   # filter using grepl()
+  return(df_filt)
+  
+}
 
 make_nice_variables <- function(column_names) {
   # Called by:         compose_features()
