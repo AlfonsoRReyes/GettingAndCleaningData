@@ -265,6 +265,21 @@ merge_with_duplicates <- function(features2, features_dup) {
   return(features_merged)
 }
 
+convert_to_nice_names <- function(features_new) {
+  # convert factors to character vector
+  raw_column_names <- as.character(features_new$V2_new)
+  
+  # ensure there are valid names for the variables. Making valid_column_names GLOBAL
+  valid_column_names <- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
+  features_new$V2_valid <- valid_column_names
+  
+  # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
+  nice_variables <- make_nice_variables(features_new$V2_valid)
+  features_new$V2_nice <- nice_variables
+  return(features_new)
+}
+
+
 compose_features <- function(df) {
   # takes care of the proper validation of the variables names in features
  
@@ -282,16 +297,7 @@ compose_features <- function(df) {
   # merge the original dataframe with the duplicates dataframe
   features_new <- merge_with_duplicates(features2, features_dup)
   
-  # convert factors to character vector
-  raw_column_names <- as.character(features_new$V2_new)
-  
-  # ensure there are valid names for the variables. Making valid_column_names GLOBAL
-  valid_column_names <- make.names(names=raw_column_names, unique=TRUE, allow_ = TRUE)
-  features_new$V2_valid <- valid_column_names
-  
-  # convert clean features dataframe to nice variables: no dots, no parentheses, no dash
-  nice_variables <- make_nice_variables(features_new$V2_valid)
-  features_new$V2_nice <- nice_variables
+  features_new <- convert_to_nice_names(features_new)
   
   # find if there are duplicate rows
   duplicate_rows <- duplicates(features_new$V2_nice)
