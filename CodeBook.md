@@ -1176,24 +1176,9 @@ download_from_source <-function(fromSource = FALSE) {
 This is the list of selected variables (mean and standard deviation) that are part of the summary by _Subjects_ and _Activities_.
 
 
-```r
-library(formattable)
-formattable(var_doc2)
-```
-
-```
-Error in formattable(var_doc2): object 'var_doc2' not found
-```
 
 
 
-
-
-
-```r
-library(formattable)
-formattable(var_doc2)
-```
 
 
 <table class="table table-condensed">
