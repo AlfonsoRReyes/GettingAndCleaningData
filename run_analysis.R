@@ -90,7 +90,7 @@ run_ana <- function() {
   
   # summary showing the mean of mean and std columns by subjects and activities
   # acting on the merged measurement data frames
-  # mean_std_vars <<- names(measurements)       # assign select variable names (mean, std) to a vector
+  # assign select variable names (mean, std) to a vector
   mean_std_vars <- get_variables_matching_keywords(valid_column_names, keywords)
   
   # summary
