@@ -338,4 +338,23 @@ duplicates  <- function(vec) {
 }
 
 
-
+short_summary <- function(df) {
+  # custom short report
+  # df:   data frame
+  # 
+  cat("Observations:", "\t", nrow(df), "\t\t\t")
+  cat("First variables:", head(names(df)), "\n")
+  cat("Variables:", "\t", length(names(df)), "\t\t\t")
+  cat("Last variables:", tail(names(df)), "\n\n")
+  #cat("First                                   Middle                           Last\n")
+  s <- seq(from=1, to=length(df), length.out = 5 )
+  all_names.df <- names(df)
+  names.df <- all_names.df[s]
+  to_desc <- select(df, one_of(names.df))
+  
+  cat("First observations\n")
+  print(head(to_desc))
+  cat("\n")
+  cat("Summary of selected variables")
+  summary(to_desc)
+}
