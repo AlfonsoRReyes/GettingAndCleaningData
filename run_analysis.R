@@ -218,7 +218,7 @@ get_duplicates_count <- function(features, V2) {
 
 
 add_logical_marker_for_dups <- function(features) {
-  # create features with logical marker for duplicates
+  # add duplicates logical marker to features data frame
   features2 <- features %>%
     mutate(duplicate = FALSE) %>%    # mark the whole new column as FALSE
     mutate(duplicate = (duplicated(V2) | duplicated(V2, fromLast = TRUE)))  # mark TRUE duplicates
@@ -227,6 +227,7 @@ add_logical_marker_for_dups <- function(features) {
 
 
 fix_duplicates <- function(features2) {
+  # create a new data frame to cure of duplicates. Uses the bins and the axis for the fix.
   # operate on a dataframe of duplicates only
   
   getFromLast <- function(y, m) {
@@ -265,7 +266,10 @@ merge_with_duplicates <- function(features2, features_dup) {
   return(features_merged)
 }
 
+
 convert_to_nice_names <- function(features_new) {
+  ## convert variable names in features to nice names
+  
   # convert factors to character vector
   raw_column_names <- as.character(features_new$V2_new)
   
@@ -295,14 +299,14 @@ prepare_features_for_export <- function(features_new) {
   write.csv(features_nice_sel, "features_nice_selected.csv", row.names = FALSE)  # write to file
 }
 
-
+################################
 compose_features <- function(df) {
   # takes care of the proper validation of the variables names in features
  
   features <- df
   
   all_rows   <- get_duplicates_count(features)$all_rows
-  duplicates <- get_duplicates_count(features)$all_rows
+  duplicates <- get_duplicates_count(features)$duplicates
   
   # add logical marker for duplicates
   features2 <- add_logical_marker_for_dups(features)
