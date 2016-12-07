@@ -204,12 +204,7 @@ raw_measurements_data <- function(ds_name) {
 }
 
 
-
-compose_features <- function(df) {
-  # takes care of the proper validation of the variables names in features
- 
-  features <- df
-  
+get_duplicates_count <- function(features, V2) {
   # convert factors to character vector
   features <- features %>%
     mutate(V2 = as.character(V2))
@@ -217,7 +212,18 @@ compose_features <- function(df) {
   # get counts for all rows and duplicate rows
   all_rows <- nrow(features)
   duplicate_rows <- length(features$V2[(duplicated(features$V2) | duplicated(features$V2, fromLast = TRUE))])
-  list(all_rows=all_rows, duplicates=duplicate_rows)    # create a list for nice reporting later
+  dups <- list(all_rows=all_rows, duplicates=duplicate_rows)    # create a list for nice reporting later
+  return(dups)
+}
+
+
+compose_features <- function(df) {
+  # takes care of the proper validation of the variables names in features
+ 
+  features <- df
+  
+  all_rows   <- get_duplicates_count(features)$all_rows
+  duplicates <- get_duplicates_count(features)$all_rows
   
   # create features with logical marker for duplicates
   features2 <- features %>%
