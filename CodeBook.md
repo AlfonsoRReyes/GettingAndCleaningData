@@ -2,6 +2,7 @@
 
 
 
+--------
 
 # About the data and the sources
 This data analysis project is based on data generated during the _Human Activity Recognition Using Smartphones Dataset_ research.
@@ -1005,92 +1006,50 @@ The selected variables with `mean` and `std` keywords
 
 
 ```
- [1] "tbodyaccmeanx"                    
- [2] "tbodyaccmeany"                    
- [3] "tbodyaccmeanz"                    
- [4] "tbodyaccstdx"                     
- [5] "tbodyaccstdy"                     
- [6] "tbodyaccstdz"                     
- [7] "tgravityaccmeanx"                 
- [8] "tgravityaccmeany"                 
- [9] "tgravityaccmeanz"                 
-[10] "tgravityaccstdx"                  
-[11] "tgravityaccstdy"                  
-[12] "tgravityaccstdz"                  
-[13] "tbodyaccjerkmeanx"                
-[14] "tbodyaccjerkmeany"                
-[15] "tbodyaccjerkmeanz"                
-[16] "tbodyaccjerkstdx"                 
-[17] "tbodyaccjerkstdy"                 
-[18] "tbodyaccjerkstdz"                 
-[19] "tbodygyromeanx"                   
-[20] "tbodygyromeany"                   
-[21] "tbodygyromeanz"                   
-[22] "tbodygyrostdx"                    
-[23] "tbodygyrostdy"                    
-[24] "tbodygyrostdz"                    
-[25] "tbodygyrojerkmeanx"               
-[26] "tbodygyrojerkmeany"               
-[27] "tbodygyrojerkmeanz"               
-[28] "tbodygyrojerkstdx"                
-[29] "tbodygyrojerkstdy"                
-[30] "tbodygyrojerkstdz"                
-[31] "tbodyaccmagmean"                  
-[32] "tbodyaccmagstd"                   
-[33] "tgravityaccmagmean"               
-[34] "tgravityaccmagstd"                
-[35] "tbodyaccjerkmagmean"              
-[36] "tbodyaccjerkmagstd"               
-[37] "tbodygyromagmean"                 
-[38] "tbodygyromagstd"                  
-[39] "tbodygyrojerkmagmean"             
-[40] "tbodygyrojerkmagstd"              
-[41] "fbodyaccmeanx"                    
-[42] "fbodyaccmeany"                    
-[43] "fbodyaccmeanz"                    
-[44] "fbodyaccstdx"                     
-[45] "fbodyaccstdy"                     
-[46] "fbodyaccstdz"                     
-[47] "fbodyaccmeanfreqx"                
-[48] "fbodyaccmeanfreqy"                
-[49] "fbodyaccmeanfreqz"                
-[50] "fbodyaccjerkmeanx"                
-[51] "fbodyaccjerkmeany"                
-[52] "fbodyaccjerkmeanz"                
-[53] "fbodyaccjerkstdx"                 
-[54] "fbodyaccjerkstdy"                 
-[55] "fbodyaccjerkstdz"                 
-[56] "fbodyaccjerkmeanfreqx"            
-[57] "fbodyaccjerkmeanfreqy"            
-[58] "fbodyaccjerkmeanfreqz"            
-[59] "fbodygyromeanx"                   
-[60] "fbodygyromeany"                   
-[61] "fbodygyromeanz"                   
-[62] "fbodygyrostdx"                    
-[63] "fbodygyrostdy"                    
-[64] "fbodygyrostdz"                    
-[65] "fbodygyromeanfreqx"               
-[66] "fbodygyromeanfreqy"               
-[67] "fbodygyromeanfreqz"               
-[68] "fbodyaccmagmean"                  
-[69] "fbodyaccmagstd"                   
-[70] "fbodyaccmagmeanfreq"              
-[71] "fbodybodyaccjerkmagmean"          
-[72] "fbodybodyaccjerkmagstd"           
-[73] "fbodybodyaccjerkmagmeanfreq"      
-[74] "fbodybodygyromagmean"             
-[75] "fbodybodygyromagstd"              
-[76] "fbodybodygyromagmeanfreq"         
-[77] "fbodybodygyrojerkmagmean"         
-[78] "fbodybodygyrojerkmagstd"          
-[79] "fbodybodygyrojerkmagmeanfreq"     
-[80] "angletbodyaccmeangravity"         
-[81] "angletbodyaccjerkmeangravitymean" 
-[82] "angletbodygyromeangravitymean"    
-[83] "angletbodygyrojerkmeangravitymean"
-[84] "anglexgravitymean"                
-[85] "angleygravitymean"                
-[86] "anglezgravitymean"                
+      [,1]                   [,2]                               
+ [1,] "tbodyaccmeanx"        "fbodyaccstdx"                     
+ [2,] "tbodyaccmeany"        "fbodyaccstdy"                     
+ [3,] "tbodyaccmeanz"        "fbodyaccstdz"                     
+ [4,] "tbodyaccstdx"         "fbodyaccmeanfreqx"                
+ [5,] "tbodyaccstdy"         "fbodyaccmeanfreqy"                
+ [6,] "tbodyaccstdz"         "fbodyaccmeanfreqz"                
+ [7,] "tgravityaccmeanx"     "fbodyaccjerkmeanx"                
+ [8,] "tgravityaccmeany"     "fbodyaccjerkmeany"                
+ [9,] "tgravityaccmeanz"     "fbodyaccjerkmeanz"                
+[10,] "tgravityaccstdx"      "fbodyaccjerkstdx"                 
+[11,] "tgravityaccstdy"      "fbodyaccjerkstdy"                 
+[12,] "tgravityaccstdz"      "fbodyaccjerkstdz"                 
+[13,] "tbodyaccjerkmeanx"    "fbodyaccjerkmeanfreqx"            
+[14,] "tbodyaccjerkmeany"    "fbodyaccjerkmeanfreqy"            
+[15,] "tbodyaccjerkmeanz"    "fbodyaccjerkmeanfreqz"            
+[16,] "tbodyaccjerkstdx"     "fbodygyromeanx"                   
+[17,] "tbodyaccjerkstdy"     "fbodygyromeany"                   
+[18,] "tbodyaccjerkstdz"     "fbodygyromeanz"                   
+[19,] "tbodygyromeanx"       "fbodygyrostdx"                    
+[20,] "tbodygyromeany"       "fbodygyrostdy"                    
+[21,] "tbodygyromeanz"       "fbodygyrostdz"                    
+[22,] "tbodygyrostdx"        "fbodygyromeanfreqx"               
+[23,] "tbodygyrostdy"        "fbodygyromeanfreqy"               
+[24,] "tbodygyrostdz"        "fbodygyromeanfreqz"               
+[25,] "tbodygyrojerkmeanx"   "fbodyaccmagmean"                  
+[26,] "tbodygyrojerkmeany"   "fbodyaccmagstd"                   
+[27,] "tbodygyrojerkmeanz"   "fbodyaccmagmeanfreq"              
+[28,] "tbodygyrojerkstdx"    "fbodybodyaccjerkmagmean"          
+[29,] "tbodygyrojerkstdy"    "fbodybodyaccjerkmagstd"           
+[30,] "tbodygyrojerkstdz"    "fbodybodyaccjerkmagmeanfreq"      
+[31,] "tbodyaccmagmean"      "fbodybodygyromagmean"             
+[32,] "tbodyaccmagstd"       "fbodybodygyromagstd"              
+[33,] "tgravityaccmagmean"   "fbodybodygyromagmeanfreq"         
+[34,] "tgravityaccmagstd"    "fbodybodygyrojerkmagmean"         
+[35,] "tbodyaccjerkmagmean"  "fbodybodygyrojerkmagstd"          
+[36,] "tbodyaccjerkmagstd"   "fbodybodygyrojerkmagmeanfreq"     
+[37,] "tbodygyromagmean"     "angletbodyaccmeangravity"         
+[38,] "tbodygyromagstd"      "angletbodyaccjerkmeangravitymean" 
+[39,] "tbodygyrojerkmagmean" "angletbodygyromeangravitymean"    
+[40,] "tbodygyrojerkmagstd"  "angletbodygyrojerkmeangravitymean"
+[41,] "fbodyaccmeanx"        "anglexgravitymean"                
+[42,] "fbodyaccmeany"        "angleygravitymean"                
+[43,] "fbodyaccmeanz"        "anglezgravitymean"                
 ```
 The first 20 observations and 20 variables of the summary
 
@@ -1192,10 +1151,6 @@ Summary of selected variables
  Max.   : 0.390444  
 ```
 
-```r
-  # str(summary_read)
-```
-
 
 # Getting the data. Acquiring the datasets
 This is optional. If we require a fresh set of files, we can get them by turning on the flag `fromSource` with `TRUE`.
@@ -1217,3 +1172,95 @@ download_from_source <-function(fromSource = FALSE) {
 }
 ```
 
+# List of variables in the summary table
+This is the list of selected variables (mean and standard deviation) that are part of the summary by _Subjects_ and _Activities_.
+
+
+  V1  nice                                sensor          stats   acc_source   domain    
+----  ----------------------------------  --------------  ------  -----------  ----------
+   1  tbodyaccmeanx                       accelerometer   mean    Body         time      
+   2  tbodyaccmeany                       accelerometer   mean    Body         time      
+   3  tbodyaccmeanz                       accelerometer   mean    Body         time      
+  41  tgravityaccmeanx                    accelerometer   mean    Body         time      
+  42  tgravityaccmeany                    accelerometer   mean    Body         time      
+  43  tgravityaccmeanz                    accelerometer   mean    Body         time      
+ 121  tbodygyromeanx                      accelerometer   mean    Gravity      time      
+ 122  tbodygyromeany                      accelerometer   mean    Gravity      time      
+ 123  tbodygyromeanz                      accelerometer   mean    Gravity      time      
+ 201  tbodyaccmagmean                     accelerometer   mean    Gravity      time      
+ 214  tgravityaccmagmean                  accelerometer   mean    Gravity      time      
+ 240  tbodygyromagmean                    accelerometer   mean    Gravity      time      
+  81  tbodyaccjerkmeanx                   accelerometer   mean    Body         time      
+  82  tbodyaccjerkmeany                   accelerometer   mean    Body         time      
+  83  tbodyaccjerkmeanz                   accelerometer   mean    Body         time      
+  84  tbodyaccjerkstdx                    accelerometer   std     Body         time      
+  85  tbodyaccjerkstdy                    accelerometer   std     Body         time      
+  86  tbodyaccjerkstdz                    accelerometer   std     Body         time      
+ 424  fbodygyromeanx                      accelerometer   mean    Body         frequency 
+ 425  fbodygyromeany                      accelerometer   mean    Body         frequency 
+ 426  fbodygyromeanz                      accelerometer   mean    Gravity      frequency 
+ 452  fbodygyromeanfreqx                  accelerometer   mean    Gravity      frequency 
+ 227  tbodyaccjerkmagmean                 accelerometer   mean    Body         time      
+ 228  tbodyaccjerkmagstd                  accelerometer   std     Body         time      
+ 503  fbodyaccmagmean                     accelerometer   mean    Body         frequency 
+ 513  fbodyaccmagmeanfreq                 accelerometer   mean    Body         frequency 
+ 529  fbodybodygyromagmean                accelerometer   mean    Body         frequency 
+ 539  fbodybodygyromagmeanfreq            accelerometer   mean    Body         frequency 
+ 555  angletbodyaccmeangravity            accelerometer   mean    Body         time      
+ 557  angletbodygyromeangravitymean       accelerometer   mean    Body         time      
+ 559  anglexgravitymean                   accelerometer   mean    Body         none      
+ 560  angleygravitymean                   accelerometer   mean    Body         none      
+ 561  anglezgravitymean                   accelerometer   mean    Body         none      
+ 345  fbodyaccjerkmeanx                   accelerometer   mean    Body         frequency 
+ 346  fbodyaccjerkmeany                   accelerometer   mean    Body         frequency 
+ 347  fbodyaccjerkmeanz                   accelerometer   mean    Body         frequency 
+ 348  fbodyaccjerkstdx                    accelerometer   std     Body         frequency 
+ 349  fbodyaccjerkstdy                    accelerometer   std     Body         frequency 
+ 350  fbodyaccjerkstdz                    accelerometer   std     Body         frequency 
+ 373  fbodyaccjerkmeanfreqx               accelerometer   mean    Body         frequency 
+ 374  fbodyaccjerkmeanfreqy               accelerometer   mean    Body         frequency 
+ 375  fbodyaccjerkmeanfreqz               accelerometer   mean    Body         frequency 
+ 202  tbodyaccmagstd                      accelerometer   std     Body         time      
+ 215  tgravityaccmagstd                   accelerometer   std     Body         time      
+ 241  tbodygyromagstd                     accelerometer   std     Body         time      
+ 516  fbodybodyaccjerkmagmean             accelerometer   mean    Body         frequency 
+ 517  fbodybodyaccjerkmagstd              accelerometer   std     Body         frequency 
+ 526  fbodybodyaccjerkmagmeanfreq         accelerometer   mean    Body         frequency 
+ 427  fbodygyrostdx                       accelerometer   std     Body         frequency 
+ 556  angletbodyaccjerkmeangravitymean    accelerometer   mean    Body         time      
+ 429  fbodygyrostdz                       accelerometer   std     Gravity      frequency 
+ 504  fbodyaccmagstd                      accelerometer   std     Gravity      frequency 
+ 530  fbodybodygyromagstd                 accelerometer   std     Gravity      frequency 
+ 266  fbodyaccmeanx                       gyroscope       mean    Body         frequency 
+ 267  fbodyaccmeany                       gyroscope       mean    Body         frequency 
+ 268  fbodyaccmeanz                       gyroscope       mean    Body         frequency 
+ 294  fbodyaccmeanfreqx                   gyroscope       mean    Body         frequency 
+ 295  fbodyaccmeanfreqy                   gyroscope       mean    Body         frequency 
+ 296  fbodyaccmeanfreqz                   gyroscope       mean    Body         frequency 
+ 161  tbodygyrojerkmeanx                  gyroscope       mean    Body         time      
+ 162  tbodygyrojerkmeany                  gyroscope       mean    Body         time      
+ 163  tbodygyrojerkmeanz                  gyroscope       mean    Body         time      
+ 164  tbodygyrojerkstdx                   gyroscope       std     Body         time      
+ 165  tbodygyrojerkstdy                   gyroscope       std     Body         time      
+ 166  tbodygyrojerkstdz                   gyroscope       std     Body         time      
+ 453  fbodygyromeanfreqy                  gyroscope       mean    Body         frequency 
+ 454  fbodygyromeanfreqz                  gyroscope       mean    Body         frequency 
+ 253  tbodygyrojerkmagmean                gyroscope       mean    Body         time      
+ 254  tbodygyrojerkmagstd                 gyroscope       std     Body         time      
+   4  tbodyaccstdx                        gyroscope       std     Body         time      
+   5  tbodyaccstdy                        gyroscope       std     Body         time      
+   6  tbodyaccstdz                        gyroscope       std     Body         time      
+  44  tgravityaccstdx                     gyroscope       std     Body         time      
+  45  tgravityaccstdy                     gyroscope       std     Body         time      
+  46  tgravityaccstdz                     gyroscope       std     Body         time      
+ 124  tbodygyrostdx                       gyroscope       std     Body         time      
+ 125  tbodygyrostdy                       gyroscope       std     Body         time      
+ 126  tbodygyrostdz                       gyroscope       std     Body         time      
+ 269  fbodyaccstdx                        gyroscope       std     Body         frequency 
+ 270  fbodyaccstdy                        gyroscope       std     Body         frequency 
+ 271  fbodyaccstdz                        gyroscope       std     Body         frequency 
+ 542  fbodybodygyrojerkmagmean            gyroscope       mean    Body         frequency 
+ 543  fbodybodygyrojerkmagstd             gyroscope       std     Body         frequency 
+ 552  fbodybodygyrojerkmagmeanfreq        gyroscope       mean    Body         frequency 
+ 428  fbodygyrostdy                       gyroscope       std     Body         frequency 
+ 558  angletbodygyrojerkmeangravitymean   gyroscope       mean    Body         time      
