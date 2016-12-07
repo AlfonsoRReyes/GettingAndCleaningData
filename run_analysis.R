@@ -67,8 +67,7 @@ run_ana <- function() {
   test_measurements_select  <- select_columns_with_expression(test_measurements,  keywords)
   
 
-  
-  # add activity labels to raw acitivities
+  # add activity labels to raw activities
   train_activities_with_labels <- merge_activity_labels(train_activities_raw, activity_labels)
   test_activities_with_labels  <- merge_activity_labels(test_activities_raw,  activity_labels)
   
