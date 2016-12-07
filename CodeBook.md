@@ -1264,3 +1264,188 @@ This is the list of selected variables (mean and standard deviation) that are pa
  552  fbodybodygyrojerkmagmeanfreq        gyroscope       mean    Body         frequency 
  428  fbodygyrostdy                       gyroscope       std     Body         frequency 
  558  angletbodygyrojerkmeangravitymean   gyroscope       mean    Body         time      
+
+
+```r
+library(pander)
+
+pander(var_doc2)
+```
+
+
+-----------------------------------------------------------------------------------
+ V1                nice                   sensor      stats   acc_source   domain  
+---- --------------------------------- ------------- ------- ------------ ---------
+ 1             tbodyaccmeanx           accelerometer  mean       Body       time   
+
+ 2             tbodyaccmeany           accelerometer  mean       Body       time   
+
+ 3             tbodyaccmeanz           accelerometer  mean       Body       time   
+
+ 41          tgravityaccmeanx          accelerometer  mean       Body       time   
+
+ 42          tgravityaccmeany          accelerometer  mean       Body       time   
+
+ 43          tgravityaccmeanz          accelerometer  mean       Body       time   
+
+121           tbodygyromeanx           accelerometer  mean     Gravity      time   
+
+122           tbodygyromeany           accelerometer  mean     Gravity      time   
+
+123           tbodygyromeanz           accelerometer  mean     Gravity      time   
+
+201           tbodyaccmagmean          accelerometer  mean     Gravity      time   
+
+214         tgravityaccmagmean         accelerometer  mean     Gravity      time   
+
+240          tbodygyromagmean          accelerometer  mean     Gravity      time   
+
+ 81          tbodyaccjerkmeanx         accelerometer  mean       Body       time   
+
+ 82          tbodyaccjerkmeany         accelerometer  mean       Body       time   
+
+ 83          tbodyaccjerkmeanz         accelerometer  mean       Body       time   
+
+ 84          tbodyaccjerkstdx          accelerometer   std       Body       time   
+
+ 85          tbodyaccjerkstdy          accelerometer   std       Body       time   
+
+ 86          tbodyaccjerkstdz          accelerometer   std       Body       time   
+
+424           fbodygyromeanx           accelerometer  mean       Body     frequency
+
+425           fbodygyromeany           accelerometer  mean       Body     frequency
+
+426           fbodygyromeanz           accelerometer  mean     Gravity    frequency
+
+452         fbodygyromeanfreqx         accelerometer  mean     Gravity    frequency
+
+227         tbodyaccjerkmagmean        accelerometer  mean       Body       time   
+
+228         tbodyaccjerkmagstd         accelerometer   std       Body       time   
+
+503           fbodyaccmagmean          accelerometer  mean       Body     frequency
+
+513         fbodyaccmagmeanfreq        accelerometer  mean       Body     frequency
+
+529        fbodybodygyromagmean        accelerometer  mean       Body     frequency
+
+539      fbodybodygyromagmeanfreq      accelerometer  mean       Body     frequency
+
+555      angletbodyaccmeangravity      accelerometer  mean       Body       time   
+
+557    angletbodygyromeangravitymean   accelerometer  mean       Body       time   
+
+559          anglexgravitymean         accelerometer  mean       Body       none   
+
+560          angleygravitymean         accelerometer  mean       Body       none   
+
+561          anglezgravitymean         accelerometer  mean       Body       none   
+
+345          fbodyaccjerkmeanx         accelerometer  mean       Body     frequency
+
+346          fbodyaccjerkmeany         accelerometer  mean       Body     frequency
+
+347          fbodyaccjerkmeanz         accelerometer  mean       Body     frequency
+
+348          fbodyaccjerkstdx          accelerometer   std       Body     frequency
+
+349          fbodyaccjerkstdy          accelerometer   std       Body     frequency
+
+350          fbodyaccjerkstdz          accelerometer   std       Body     frequency
+
+373        fbodyaccjerkmeanfreqx       accelerometer  mean       Body     frequency
+
+374        fbodyaccjerkmeanfreqy       accelerometer  mean       Body     frequency
+
+375        fbodyaccjerkmeanfreqz       accelerometer  mean       Body     frequency
+
+202           tbodyaccmagstd           accelerometer   std       Body       time   
+
+215          tgravityaccmagstd         accelerometer   std       Body       time   
+
+241           tbodygyromagstd          accelerometer   std       Body       time   
+
+516       fbodybodyaccjerkmagmean      accelerometer  mean       Body     frequency
+
+517       fbodybodyaccjerkmagstd       accelerometer   std       Body     frequency
+
+526     fbodybodyaccjerkmagmeanfreq    accelerometer  mean       Body     frequency
+
+427            fbodygyrostdx           accelerometer   std       Body     frequency
+
+556  angletbodyaccjerkmeangravitymean  accelerometer  mean       Body       time   
+
+429            fbodygyrostdz           accelerometer   std     Gravity    frequency
+
+504           fbodyaccmagstd           accelerometer   std     Gravity    frequency
+
+530         fbodybodygyromagstd        accelerometer   std     Gravity    frequency
+
+266            fbodyaccmeanx             gyroscope    mean       Body     frequency
+
+267            fbodyaccmeany             gyroscope    mean       Body     frequency
+
+268            fbodyaccmeanz             gyroscope    mean       Body     frequency
+
+294          fbodyaccmeanfreqx           gyroscope    mean       Body     frequency
+
+295          fbodyaccmeanfreqy           gyroscope    mean       Body     frequency
+
+296          fbodyaccmeanfreqz           gyroscope    mean       Body     frequency
+
+161         tbodygyrojerkmeanx           gyroscope    mean       Body       time   
+
+162         tbodygyrojerkmeany           gyroscope    mean       Body       time   
+
+163         tbodygyrojerkmeanz           gyroscope    mean       Body       time   
+
+164          tbodygyrojerkstdx           gyroscope     std       Body       time   
+
+165          tbodygyrojerkstdy           gyroscope     std       Body       time   
+
+166          tbodygyrojerkstdz           gyroscope     std       Body       time   
+
+453         fbodygyromeanfreqy           gyroscope    mean       Body     frequency
+
+454         fbodygyromeanfreqz           gyroscope    mean       Body     frequency
+
+253        tbodygyrojerkmagmean          gyroscope    mean       Body       time   
+
+254         tbodygyrojerkmagstd          gyroscope     std       Body       time   
+
+ 4             tbodyaccstdx              gyroscope     std       Body       time   
+
+ 5             tbodyaccstdy              gyroscope     std       Body       time   
+
+ 6             tbodyaccstdz              gyroscope     std       Body       time   
+
+ 44           tgravityaccstdx            gyroscope     std       Body       time   
+
+ 45           tgravityaccstdy            gyroscope     std       Body       time   
+
+ 46           tgravityaccstdz            gyroscope     std       Body       time   
+
+124            tbodygyrostdx             gyroscope     std       Body       time   
+
+125            tbodygyrostdy             gyroscope     std       Body       time   
+
+126            tbodygyrostdz             gyroscope     std       Body       time   
+
+269            fbodyaccstdx              gyroscope     std       Body     frequency
+
+270            fbodyaccstdy              gyroscope     std       Body     frequency
+
+271            fbodyaccstdz              gyroscope     std       Body     frequency
+
+542      fbodybodygyrojerkmagmean        gyroscope    mean       Body     frequency
+
+543       fbodybodygyrojerkmagstd        gyroscope     std       Body     frequency
+
+552    fbodybodygyrojerkmagmeanfreq      gyroscope    mean       Body     frequency
+
+428            fbodygyrostdy             gyroscope     std       Body     frequency
+
+558  angletbodygyrojerkmeangravitymean   gyroscope    mean       Body       time   
+-----------------------------------------------------------------------------------
+
