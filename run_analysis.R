@@ -100,7 +100,7 @@ run_ana <- function(fromSource = FALSE) {
   
   # output of tidy dataset containing summary of subjects and activities 
   # and the mean of selected columns.
-  write.table(sum_SubjectActivity, "sum_subjects_activities.txt")
+  write.table(sum_SubjectActivity, "sum_subjects_activities.txt", row.names = FALSE)
   
 }
 
