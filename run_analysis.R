@@ -217,6 +217,14 @@ get_duplicates_count <- function(features, V2) {
 }
 
 
+add_logical_marker_for_dups <- function(features) {
+  # create features with logical marker for duplicates
+  features2 <- features %>%
+    mutate(duplicate = FALSE) %>%    # mark the whole new column as FALSE
+    mutate(duplicate = (duplicated(V2) | duplicated(V2, fromLast = TRUE)))  # mark TRUE duplicates
+  return(features2)
+}
+
 compose_features <- function(df) {
   # takes care of the proper validation of the variables names in features
  
@@ -225,10 +233,7 @@ compose_features <- function(df) {
   all_rows   <- get_duplicates_count(features)$all_rows
   duplicates <- get_duplicates_count(features)$all_rows
   
-  # create features with logical marker for duplicates
-  features2 <- features %>%
-    mutate(duplicate = FALSE) %>%    # mark the whole new column as FALSE
-    mutate(duplicate = (duplicated(V2) | duplicated(V2, fromLast = TRUE)))  # mark TRUE duplicates
+  features2 <- add_logical_marker_for_dups(features)
   
   # get subset of features. working only with subset of duplicates
   
